@@ -52,7 +52,7 @@
 
         
         
-
+        <!-- JavaScript for front page animations. Handles interactions with search icon + close icon.-->
         <script>
             let inputBox = document.querySelector(".input-box"),
                 searchIcon = document.querySelector(".icon"),
@@ -66,7 +66,6 @@
                 title.classList.add("hide");
                 postTitle.classList.add("open");
                 input.focus();
-                // input.select();
             })
             closeIcon.addEventListener("click", () => {
                 inputBox.classList.remove("open");

@@ -32,6 +32,10 @@
     transition: all 0.5s ease-out;
 }
 
+.header.hide {
+  opacity: 0;
+}
+
 .post-header {
     margin-top: 20rem;
     position: absolute;
@@ -48,9 +52,6 @@
     opacity: 100%;
 }
 
-.header.hide {
-    opacity: 0;
-}
 
 body{
   height: 1250px;
@@ -58,14 +59,9 @@ body{
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+  background: linear-gradient(to bottom, #333333, #1a1a1a);
   /* background-image: linear-gradient(120deg, #4070f4 0%, #66a6ff 100%);   */
   /* background-image: linear-gradient(to right, #243949 0%, #517fa4 100%); */
-  background: linear-gradient(to bottom, #333333, #1a1a1a);
-  /* background: linear-gradient(to bottom, #a7a7a7, #808080);
-  background-color: #333;  */
-  /* background: linear-gradient(to bottom, #bebebe, #bdbdbd);
-  color: #333; */
-  
   background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -92,7 +88,9 @@ body{
   max-width: 350px;
   transform: translateY(-15rem);
   animation: none;
+  padding: 0 15px 0 65px;
 }
+
 input{
   position: relative;
   outline: none;
@@ -105,9 +103,7 @@ input{
   color: #333;
   background-color: #fff;
 }
-.input-box.open{
-  padding: 0 15px 0 65px;
-}
+
 .icon{
   cursor: pointer;
   position: absolute;
@@ -128,7 +124,9 @@ position: absolute;
   font-size: 30px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.search-icon{
+
+/* Maginifying Glass */
+.search-icon{ 
   color: #66a6ff;
   font-size: 30px;
   transform: translateY(-50%);
@@ -136,6 +134,8 @@ position: absolute;
 .input-box.open .search-icon{
   transform: translateY(-50%);
 }
+
+/* X icon */
 .close-icon{
   right: -45px;
   color: #fff;
