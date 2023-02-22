@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
         <!-- CSS -->
         <link rel="stylesheet" href="styles.css">
@@ -16,23 +16,42 @@
     </head>
     
     <body>
+        
         <div class="header">
             <h1>SimpleNews</h1>
-            <p>The news, but simpler.</p>
+            <p class = "subheader">The news, but simpler.</p>
         </div>
         <div class="post-header">
             <h1>Search SimpleNews</h1>
         </div>
+        
         <span class="top-icon">
             <i class="uil uil-newspaper top-icon"></i>
         </span>
+        
         <div class="input-box">
             <input type="text" placeholder="Try 'top headlines'">
             <span class="icon">
                 <i class="uil uil-search search-icon"></i>
             </span>
             <i class="uil uil-times close-icon"></i>
+            
         </div>
+        <!-- <div class="user-cards" card-grid>
+        <template data-user-template> 
+            <div class="card">
+                <div class="title">Title</div>
+                <img src="template.jpg" class = "img">
+                <div class="author">Johnson Burrow</div>
+                <div class="date">00/00/00</div>
+                Strongly consider adding icons!
+                <div class="link">website.com</div>
+            </div>
+        </template>
+        </div> -->
+
+        
+        
 
         <script>
             let inputBox = document.querySelector(".input-box"),
@@ -52,6 +71,8 @@
                 postTitle.classList.remove("open");
             })
         </script>
+    
         
     </body>
+    
 </html>

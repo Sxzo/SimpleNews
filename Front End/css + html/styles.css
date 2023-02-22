@@ -16,6 +16,8 @@
     transform: translateY(-5rem) translateX(-1.5rem);
     color: #fff;
     background: transparent;
+    
+    
 }
 
 .header {
@@ -35,7 +37,7 @@
     color: #fff;
     text-align: center;
     font-size: 15px;
-    transform: translateY(-1rem);
+    transform: translateY(-1.5rem);
     transition: all 0.5s ease-out;
     opacity: 0%;
 }
@@ -45,18 +47,25 @@
 }
 
 .header.hide {
-    transform: scale(0, 0);
+    opacity: 0;
 }
 
 body{
-  height: 100vh;
+  height: 1250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-image: linear-gradient(60deg, #29323c 0%, #485563 100%); */ /* BEST DARK */
-  background-image: linear-gradient(120deg, #4070f4 0%, #66a6ff 100%); /* BEST LIGHT */ 
+  background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+  /* background-image: linear-gradient(120deg, #4070f4 0%, #66a6ff 100%);   */
   /* background-image: linear-gradient(to right, #243949 0%, #517fa4 100%); */
-  /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
+  background: linear-gradient(to bottom, #333333, #1a1a1a);
+  /* background: linear-gradient(to bottom, #a7a7a7, #808080);
+  background-color: #333;  */
+  /* background: linear-gradient(to bottom, #bebebe, #bdbdbd);
+  color: #333; */
+  
+  background-position: center;
+  background-size: cover;
   overflow: hidden;
 }
 
@@ -69,9 +78,14 @@ body{
   border-radius: 6px;
   background-color: #fff;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  animation: bounce 5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
   transform: translateY(-1rem);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
+
+.input-box:hover {
+  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
 .input-box.open{
   max-width: 350px;
   transform: translateY(-15rem);
@@ -97,13 +111,12 @@ input{
   position: absolute;
   height: 100%;
   top: 0;
-  left: 0;
+  left: 0; 
   width: 60px;
   border-radius: 6px;
-  display: flex; 
+  display: flex;
   justify-content: center;
   background-color: #fff;
-  
 }
 .search-icon,
 .close-icon{
@@ -134,3 +147,5 @@ position: absolute;
   pointer-events: auto;
   transform: translateY(-50%) rotate(180deg);
 }
+
+
