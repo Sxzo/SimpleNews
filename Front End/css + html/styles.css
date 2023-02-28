@@ -161,15 +161,14 @@ input{
   opacity: 0;
   
   transform: translateY(375px);
-  bottom: 0px;
-  position: relative;
+  /* position: relative; */
   padding: 15px;
-  background-color: #fff;
+  background-color: #e5e5e5;
   height: 100px;
   width: 675px;
   border-radius: 15px;
   overflow: hidden;
-  margin: 10px;
+  padding: 25px;
   box-shadow: 0 16px 32px 0 rgba(92, 91, 91, 0.2);
   
   
@@ -180,8 +179,29 @@ input{
 }
 
 .card:hover {
-  transition: none;
-  box-shadow: 0 2px 8px 0 #fff;
+  box-shadow: 0 0px 4px 0 #fff;
+}
+
+.exit-icon {
+  position: relative;
+  cursor: pointer;
+  color: #388bff;
+  font-size: 45px;
+  left: 92%;
+  top: -18%;
+  font-weight: lighter;
+
+}
+.title {
+  position: relative;
+  overflow: hidden;
+  max-width: 550px;
+  font-size: 20px;
+  color: #495159;
+  font-weight: bold;
+  transform: translateY(-75px);
+  top: -5%;
+  left: 1%;
 }
 
 
