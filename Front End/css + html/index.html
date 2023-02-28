@@ -37,21 +37,22 @@
             <i class="uil uil-times close-icon"></i>
             
         </div>
-        <div class="user-cards" card-grid>
-        <!-- <template data-user-template>  -->
-            <div class="card">
-                <div class="title">Title</div>
-                <img src="template.jpg" class = "img">
-                <div class="author">Johnson Burrow</div>
-                <div class="date">00/00/00</div>
-                <!-- Strongly consider adding icons! -->
-                <div class="link">website.com</div>
-            </div>
-        <!-- </template> -->
+        
+        <div class="user-cards" card-grid>  
+            <!-- <template data-user-template>  -->
+                    <div class="card"> 
+                        <i class="uil uil-external-link-alt"></i>
+                        <div class="title">Title</div>
+                        <div class="author">Johnson Burrow</div>
+                        <div class="date">00/00/00</div>
+                        <!-- Strongly consider adding icons! -->
+                        <div class="link">website.com</div>
+                        <div class="content">content</div>
+                    </div>
+                    
+                    
+            <!-- </template> -->
         </div>
-
-        
-        
 
         <script>
             let inputBox = document.querySelector(".input-box"),
@@ -59,20 +60,24 @@
                 closeIcon = document.querySelector(".close-icon");
                 title = document.querySelector(".header")
                 postTitle = document.querySelector(".post-header")
+                card = document.querySelector(".card");
 
             searchIcon.addEventListener("click", () => {
                 inputBox.classList.add("open");
                 title.classList.add("hide");
                 postTitle.classList.add("open");
+                card.classList.add("reveal"); 
             })
             closeIcon.addEventListener("click", () => {
                 inputBox.classList.remove("open");
                 title.classList.remove("hide");
                 postTitle.classList.remove("open");
+                card.classList.remove("reveal"); 
             })
         </script>
-    
         
+
     </body>
+    
     
 </html>
