@@ -14,7 +14,6 @@ url = ('https://newsapi.org/v2/everything?'
        'sortBy=popularity&'
        'apiKey='+ api_key)
 
-print(url)
 response = requests.get(url)
 
 print (response.json())
