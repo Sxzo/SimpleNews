@@ -51,10 +51,11 @@
 }
 
 body{
-  height: 1250px;
+  height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  flex-direction: column;
   background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
   /* background-image: linear-gradient(120deg, #4070f4 0%, #66a6ff 100%);   */
   /* background-image: linear-gradient(to right, #243949 0%, #517fa4 100%); */
@@ -78,7 +79,7 @@ body{
   border-radius: 6px;
   background-color: #fff;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transform: translateY(-1rem);
+  transform: translateY(35rem);
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -88,10 +89,10 @@ body{
 
 .input-box.open{
   max-width: 350px;
-  transform: translateY(-15rem);
-  animation: none;
+  transform: translateY(355px);
 }
 input{
+  justify-self: center;
   position: relative;
   outline: none;
   border: none;
@@ -120,8 +121,8 @@ input{
 }
 .search-icon,
 .close-icon{
- cursor: pointer;
-position: absolute;
+  cursor: pointer;
+  position: absolute;
   top: 50%;
   font-size: 30px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -132,7 +133,7 @@ position: absolute;
   transform: translateY(-50%);
 }
 .input-box.open .search-icon{
-  transform: translateY(-50%);
+  transform: translateY(-50%); 
 }
 .close-icon{
   right: -45px;
@@ -146,6 +147,75 @@ position: absolute;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-50%) rotate(180deg);
+}
+
+.user-cards {
+  /* display: grid;
+  /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
+  gap: .25rem;
+  margin-top: 1rem; 
   
 }
+
+.card {
+  opacity: 0;
+  
+  transform: translateY(375px);
+  padding: 15px;
+  background-color: #e5e5e5;
+  height: 100px;
+  width: 675px;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 25px;
+  box-shadow: 0 16px 32px 0 rgba(92, 91, 91, 0.2);
+  margin: 15px;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25);
+  
+}
+
+.card.reveal {
+  opacity: 100;
+}
+
+.card:hover  {
+  box-shadow: 0 0px 4px 0 #fff;
+  height: 140px;
+}
+.card:hover .exit-icon  {
+  /* top: 12.5%; */
+}
+
+.exit-icon {
+  /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25); */
+  position: relative;
+  cursor: pointer;
+  color: #388bff;
+  font-size: 45px;
+  left: 92%;
+  top: -18%;
+  font-weight: lighter;
+}
+.title {
+  position: relative;
+  overflow: hidden;
+  max-width: 550px;
+  font-size: 20px;
+  color: #3e444b;
+  font-weight: bold;
+  transform: translateY(-87px);
+}
+.cardSubheader {
+  display: flex;
+  flex-direction: row;
+  transform: translateY(-80px);
+  font-weight: bold;
+  color: #5a636c;
+}
+
+.subicon {
+  color: #388bff;
+}
+
+
 
