@@ -150,8 +150,8 @@ input{
 }
 
 .user-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* display: grid;
+  /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
   gap: .25rem;
   margin-top: 1rem; 
   
@@ -161,7 +161,7 @@ input{
   opacity: 0;
   
   transform: translateY(375px);
-  position: relative;
+  /* position: relative; */
   padding: 15px;
   background-color: #e5e5e5;
   height: 100px;
@@ -202,24 +202,6 @@ input{
   transform: translateY(-75px);
   top: -5%;
   left: 1%;
-}
-
-.author {
-  position: relative;
-  font-size: 16px;
-  color: #9e9e9e;
-  transform: translateY(-55px);
-  top: -50%;
-  left: 1%;
-}
-
-.date {
-  position: relative;
-  font-size: 16px;
-  color: #9e9e9e;
-  transform: translateY(-35px);
-  top: -140%;
-  left: 50%;
 }
 
 
