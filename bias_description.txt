@@ -1,0 +1,29 @@
+File to declare the media bias dictionary
+Source: https://adfontesmedia.com/interactive-media-bias-chart/
+
+Dictionay of companies that maps to a tuple
+First entry of tuple is reliablity
+Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
+
+
+Reliablity:
+Greater than 40 reliablity: Most reliable
+24 < reliablity < 40 : Somewhate reliable
+Less than 24 reliablity: Least reliable
+
+Bias:
+
+-6 < Bias < 6: Non-paritsan/not biased
+
+-18 < Bias < -6: Tends to the left
+-30 < Bias < -18: Left
+Bias < -30: Extreme left
+
+6 < Bias < 18: Tends to the right
+18 < Bias < 30: Right
+Bias > 30: Extreme right
+
+
+
+
+

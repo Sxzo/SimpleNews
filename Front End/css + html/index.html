@@ -3,6 +3,11 @@
 <!DOCTYPE html>
     <html lang="en">
     <head>
+        <!-- What appears on the user's tab on their browser-->
+        <title>
+            SimpleNews
+        </title>
+
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -41,17 +46,20 @@
         <div class="user-cards" card-grid>  
             <!-- <template data-user-template>  -->
                     <div class="card"> 
-                        <i class="uil uil-external-link-alt exit-icon"></i>
-                        <div class="title">Tech Down, Losing Ground for February - Tech Roundup. Stock market skyrocketing after Biden failures.</div> <!-- 96 CHAR MAX -->
+                        <div class="container">
+                            <i class="uil uil-external-link-alt exit-icon"></i> 
+                            <div class="title">Tech Down, Losing Ground for February - Tech Roundup. Stock market skyrocketing after Biden failures.</div> <!-- 96 CHAR MAX -->
+                            <div class="mediaInfo"> <!--Need to pull from json file:-->
+                                <div class="reliability">  Very Reliable  </div>    
+                                <div class="bias""></i>  Not Bias  </div>                  
+                            </div>
+                        </div>
                         <div class="cardSubheader"> <i class="uil uil-edit-alt subicon"></i> &nbsp; Dan Gallagher &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="uil uil-schedule subicon"></i> &nbsp; 2023-02-24 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="uil uil-newspaper subicon"></i>  &nbsp;The Wall Street Journal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                         <!-- Strongly consider adding icons! -->
                     </div>
-
-
-
             <!-- </template> -->
         </div>
 

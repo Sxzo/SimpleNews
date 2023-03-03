@@ -1,11 +1,3 @@
-// File to declare the media bias dictionary
-// Source: https://adfontesmedia.com/interactive-media-bias-chart/
-
-
-// Dictionay of companies that maps to a tuple
-// First entry of tuple is reliablity
-// Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
-
 {
     "ABC_News":[46.70,-4.41],
     "CBS_News":[44.28,-3.22],

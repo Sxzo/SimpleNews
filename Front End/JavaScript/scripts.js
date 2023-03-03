@@ -27,3 +27,7 @@
 //       return { name: user.name, email: user.email, element: card }
 //     })
 //   })
+
+// $.getJSON('media_bias.json', function(data) {
+//     //do stuff with your data here
+// });
