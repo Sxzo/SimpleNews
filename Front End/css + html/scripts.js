@@ -33,6 +33,8 @@ closeIcon.addEventListener("click", () => {
 // const searchInput = document.querySelector(".type-input")
 
 let users = []
+// get reference to the user-cards container
+const userCardsContainer = document.querySelector('.user-cards');
 
 input.addEventListener("input", e => {
   input.addEventListener("keyup", function(event) {
@@ -44,13 +46,73 @@ input.addEventListener("input", e => {
             'q=' + topic + '&'+
             'sortBy=popularity&'+
             'apiKey='+ api_key;
-        fetch(link).then(res => res.json()).then(data => console.log(data));
+        // clear previous search results
+        userCardsContainer.innerHTML = '';
+        fetch(link).then(res => res.json()).then(data => {
+          // loop through the articles array and create a card for each article
+          data.articles.forEach(article => {
+            // create a card element
+            const card = document.createElement('div');
+            card.classList.add('card', 'reveal');
+      
+            // create the card header with the article title
+            const header = document.createElement('div');
+            header.classList.add('title');
+            header.textContent = article.title;
+            card.appendChild(header);
+      
+            // create the card subheader with the article author, date, and source name
+            const subheader = document.createElement('div');
+            subheader.classList.add('cardSubheader');
+            subheader.innerHTML = `<i class="uil uil-edit-alt subicon"></i> &nbsp; ${article.author || 'Unknown'} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <i class="uil uil-schedule subicon"></i> &nbsp; ${article.publishedAt.substring(0, 10)} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <i class="uil uil-newspaper subicon"></i> &nbsp; ${article.source.name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
+            card.appendChild(subheader);
+      
+            // add the card to the user-cards container
+            userCardsContainer.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
         //searches multiple times
     }
   })
   
 })
 
+
+// fetch(link)
+//   .then(response => response.json())
+//   .then(data => {
+//     // loop through the articles array and create a card for each article
+//     data.articles.forEach(article => {
+//       // create a card element
+//       const card = document.createElement('div');
+//       card.classList.add('card');
+
+//       // create the card header with the article title
+//       const header = document.createElement('div');
+//       header.classList.add('title');
+//       header.textContent = article.title;
+//       card.appendChild(header);
+
+//       // create the card subheader with the article author, date, and source name
+//       const subheader = document.createElement('div');
+//       subheader.classList.add('cardSubheader');
+//       subheader.innerHTML = `<i class="uil uil-edit-alt subicon"></i> &nbsp; ${article.author || 'Unknown'} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//                             <i class="uil uil-schedule subicon"></i> &nbsp; ${article.publishedAt.substring(0, 10)} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//                             <i class="uil uil-newspaper subicon"></i> &nbsp; ${article.source.name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
+//       card.appendChild(subheader);
+
+//       // add the card to the user-cards container
+//       userCardsContainer.appendChild(card);
+//     });
+//   })
+//   .catch(error => {
+//     console.error(error);
+//   });
 
 
 // fetch("https://jsonplaceholder.typicode.com/users")

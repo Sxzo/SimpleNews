@@ -203,12 +203,12 @@ input{
   font-size: 20px;
   color: #3e444b;
   font-weight: bold;
-  transform: translateY(-87px);
+  transform: translateY(-7px);
 }
 .cardSubheader {
   display: flex;
   flex-direction: row;
-  transform: translateY(-80px);
+  transform: translateY(10px);
   font-weight: bold;
   color: #5a636c;
 }

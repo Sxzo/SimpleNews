@@ -1,0 +1,32 @@
+{
+    "status": "ok",
+    "totalResults": 33,
+    "articles": [
+        {
+            "source": {
+                "id": "the-washington-post",
+                "name": "The Washington Post"
+            },
+            "author": "Adam Taylor",
+            "title": "Analysis | Nord Stream intrigue raises tricky questions for Kyiv - The Washington Post",
+            "description": "Whether involved or not, Kyiv has good reason to be cautious about the intrigue, which comes as it continues its push for new support and weapons.",
+            "url": "https://www.washingtonpost.com/world/2023/03/09/nord-stream-ukraine-kyiv/",
+            "urlToImage": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/GIYXSYEIJ2BDOMXOBGLU3NBRLI_size-normalized.jpg&w=1440",
+            "publishedAt": "2023-03-09T06:01:14Z",
+            "content": "Comment on this story\r\nYoure reading an excerpt from the Todays WorldView newsletter. Sign up to get the rest free, including news from around the globe and interesting ideas and opinions to know, se… [+6925 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "BBC News"
+            },
+            "author": "https://www.facebook.com/bbcnews",
+            "title": "Ukraine war: Russian air strikes hit cities across country - BBC",
+            "description": "The electrical power supply at the Zaporizhzhia nuclear power plant has been lost after a strike.",
+            "url": "https://www.bbc.com/news/world-europe-64897888",
+            "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/C2F9/production/_128931994_8b16153f2a4dd6a3e4356d9e3053431ca03c7bda0_322_6000_33751000x563.jpg",
+            "publishedAt": "2023-03-09T05:58:01Z",
+            "content": "Russia has launched missiles at targets across Ukraine, from Kharkiv in the north to Odesa in the south and Zhytomyr in the west. \r\nBuildings and infrastructure were hit in Kharkiv and Odesa, with po… [+3607 chars]"
+        }
+    ]
+}
