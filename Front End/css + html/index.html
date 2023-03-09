@@ -12,6 +12,8 @@
                 
         <!-- Unicons CSS -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+        <script src="scripts.js" defer></script>
                         
     </head>
     
@@ -30,7 +32,7 @@
         </span>
         
         <div class="input-box">
-            <input type="text" placeholder="Try 'top headlines'">
+            <input type="text" class="type-input" placeholder="Try 'top headlines'">
             <span class="icon">
                 <i class="uil uil-search search-icon"></i>
             </span>
@@ -54,28 +56,6 @@
 
             <!-- </template> -->
         </div>
-
-        <script>
-            let inputBox = document.querySelector(".input-box"),
-                searchIcon = document.querySelector(".icon"),
-                closeIcon = document.querySelector(".close-icon");
-                title = document.querySelector(".header")
-                postTitle = document.querySelector(".post-header")
-                card = document.querySelector(".card");
-
-            searchIcon.addEventListener("click", () => {
-                inputBox.classList.add("open");
-                title.classList.add("hide");
-                postTitle.classList.add("open");
-                card.classList.add("reveal"); 
-            })
-            closeIcon.addEventListener("click", () => {
-                inputBox.classList.remove("open");
-                title.classList.remove("hide");
-                postTitle.classList.remove("open");
-                card.classList.remove("reveal"); 
-            })
-        </script>
         
 
     </body>
