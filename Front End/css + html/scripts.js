@@ -35,15 +35,17 @@ closeIcon.addEventListener("click", () => {
 let users = []
 
 input.addEventListener("input", e => {
-  document.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
+  input.addEventListener("keyup", function(event) {
+    if (event.key === 'Enter') {
+        console.clear();
         const topic = e.target.value
+        console.log(e.target.value);
         var link = 'https://newsapi.org/v2/everything?'+
             'q=' + topic + '&'+
             'sortBy=popularity&'+
             'apiKey='+ api_key;
         fetch(link).then(res => res.json()).then(data => console.log(data));
-        console.log("test");
+        //searches multiple times
     }
   })
   
