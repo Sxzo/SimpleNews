@@ -8,6 +8,8 @@ postTitle = document.querySelector(".post-header")
 card = document.querySelector(".card");
 input = document.querySelector(".type-input")
 var api_key = "2729f7e2011b43d7be77e7b60bc97701"; 
+container = document.querySelector(".card-container")
+cardTemplate = document.querySelector(".card-template")
 
 
 var search_state = false; 
@@ -16,7 +18,7 @@ searchIcon.addEventListener("click", () => {
     inputBox.classList.add("open");
     title.classList.add("hide");
     postTitle.classList.add("open");
-    card.classList.add("reveal");
+    // card.classList.add("reveal");
     input.focus();
     input.select();
     search_state = true;   
@@ -25,14 +27,14 @@ closeIcon.addEventListener("click", () => {
     inputBox.classList.remove("open");
     title.classList.remove("hide");
     postTitle.classList.remove("open");
-    card.classList.remove("reveal"); 
+    // card.classList.remove("reveal"); 
     search_state = false; 
 })
 
 
 // const searchInput = document.querySelector(".type-input")
 
-let users = []
+let articles = []
 
 input.addEventListener("input", e => {
   input.addEventListener("keyup", function(event) {
@@ -44,7 +46,24 @@ input.addEventListener("input", e => {
             'q=' + topic + '&'+
             'sortBy=popularity&'+
             'apiKey='+ api_key;
-        fetch(link).then(res => res.json()).then(data => console.log(data));
+        fetch(link).then(res => res.json()).then(data => {
+          data.articles.forEach(article => {
+            const newcard = cardTemplate.content.cloneNode(true);
+
+            const title = newcard.querySelector(".title");
+            const author = newcard.querySelector(".data-author");
+            const date = newcard.querySelector(".data-date");
+            const company = newcard.querySelector(".data-company");
+
+            title.textContent = article.title;
+            author.textContent = article.author;
+            date.textContent = article.publishedAt.substring(0, 10);
+            company.textContent = article.source.name;
+
+            container.append(newcard);
+          })
+           
+        });
         //searches multiple times
     }
   })

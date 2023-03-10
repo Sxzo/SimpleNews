@@ -6,6 +6,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  
 }
 
 .top-icon {
@@ -67,7 +68,7 @@ body{
   
   background-position: center;
   background-size: cover;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .input-box{
@@ -150,15 +151,14 @@ input{
 }
 
 .user-cards {
-  /* display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
-  gap: .25rem;
-  margin-top: 1rem; 
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* gap: .25rem;
+  margin-top: 1rem; */
 }
 
 .card {
-  opacity: 0;
+  opacity: 100;
   
   transform: translateY(375px);
   padding: 15px;
