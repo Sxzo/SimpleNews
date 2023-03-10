@@ -20,7 +20,6 @@ searchIcon.addEventListener("click", () => {
     postTitle.classList.add("open");
     // card.classList.add("reveal");
     input.focus();
-    input.select();
     search_state = true;   
 })
 closeIcon.addEventListener("click", () => {
@@ -28,7 +27,11 @@ closeIcon.addEventListener("click", () => {
     title.classList.remove("hide");
     postTitle.classList.remove("open");
     // card.classList.remove("reveal"); 
-    search_state = false; 
+    search_state = false;
+    while (container.firstChild) {
+      container.removeChild(container.firstChild); 
+    }
+    input.reset()
 })
 
 
