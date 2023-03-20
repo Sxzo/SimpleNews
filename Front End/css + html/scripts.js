@@ -39,6 +39,7 @@ closeIcon.addEventListener("click", () => {
 
 let articles = []
 
+//When user searches, generates cards from api:
 input.addEventListener("input", e => {
   input.addEventListener("keyup", function(event) {
     if (event.key === 'Enter') {
@@ -57,11 +58,24 @@ input.addEventListener("input", e => {
             const author = newcard.querySelector(".data-author");
             const date = newcard.querySelector(".data-date");
             const company = newcard.querySelector(".data-company");
-
-            title.textContent = article.title;
+            // if (article.author.includes(":")) {
+            //   author.textContent = "poo";
+            // }
+            // if (article.author.includes("@")) { //Some articles have emails in the author name, this tries to parse them and find the actual name
+            //   if (article.autor.indexOf("(") !== -1 && article.autor.indexOf(")") !== -1) {
+            //     var begin = article.autor.indexOf("(");
+            //     var end = article.autor.indexOf(")");
+            //     author.textContent = article.author.substring(begin + 1, end);
+            //   }
+            // } else {
+            //   author.textContent = article.author;
+            // }
             author.textContent = article.author;
+            title.textContent = article.title;
             date.textContent = article.publishedAt.substring(0, 10);
             company.textContent = article.source.name;
+            
+
 
             container.append(newcard);
           })
