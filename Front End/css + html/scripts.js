@@ -5,34 +5,87 @@ searchIcon = document.querySelector(".icon"),
 closeIcon = document.querySelector(".close-icon");
 title = document.querySelector(".header")
 postTitle = document.querySelector(".post-header")
-card = document.querySelector(".card");
+gearIcon = document.querySelector(".gear-icon");
+downIcon = document.querySelector(".down-icon");
+
 input = document.querySelector(".type-input")
-var api_key = "2729f7e2011b43d7be77e7b60bc97701"; 
+var api_key = "2729f7e2011b43d7be77e7b60bc97701";
+
+card = document.querySelector(".card"); 
 container = document.querySelector(".card-container")
 cardTemplate = document.querySelector(".card-template")
 
+displayCounterData = document.getElementById("counter-data")
+displayAdd = document.querySelector(".plus-display-button");
+displaySubtract = document.querySelector(".minus-display-button");
+displayCounter = document.querySelector(".display-counter");
+noResultsFound = document.querySelector(".no-results-found");
+
 
 var search_state = false; 
+var display_count = 5; 
+var card_count = 0;
+var display_count_max = 50;
+
+displayCounterData.innerHTML = display_count; 
 
 searchIcon.addEventListener("click", () => {
     inputBox.classList.add("open");
     title.classList.add("hide");
     postTitle.classList.add("open");
-    // card.classList.add("reveal");
     input.focus();
     search_state = true;   
+    
+    gearIcon.classList.add("open");
+    downIcon.classList.add("open");
+    displayCounter.classList.add("open");
+    
+    
 })
+
 closeIcon.addEventListener("click", () => {
     inputBox.classList.remove("open");
     title.classList.remove("hide");
     postTitle.classList.remove("open");
-    // card.classList.remove("reveal"); 
+
+    displayCounter.classList.remove("open");
     search_state = false;
     while (container.firstChild) {
       container.removeChild(container.firstChild); 
     }
-    input.reset()
+    card_count = 0;
+    input.value = ""
+    noResultsFound.classList.remove("open");
+    gearIcon.classList.remove("open");
+    downIcon.classList.remove("open");
+    // displayCounter.style.display = "none";
+    // gearIcon.classList.remove("rotate");
+    
 })
+
+displayAdd.addEventListener("click", () => {
+  if (display_count == display_count_max) return;
+  display_count += 5;
+  displayCounterData.innerHTML = display_count; 
+})
+
+displaySubtract.addEventListener("click", () => {
+  if (display_count == 5) return;
+  display_count -= 5;
+  displayCounterData.innerHTML = display_count; 
+})
+
+
+gearIcon.addEventListener("click", ()=> {
+  gearIcon.classList.toggle("rotate");
+})
+
+downIcon.addEventListener("click", () => {
+  displayCounter.classList.toggle("open");
+  downIcon.classList.toggle("rotate");
+})
+
+
 
 
 // const searchInput = document.querySelector(".type-input")
@@ -40,65 +93,58 @@ closeIcon.addEventListener("click", () => {
 let articles = []
 
 //When user searches, generates cards from api:
-input.addEventListener("input", e => {
   input.addEventListener("keyup", function(event) {
     if (event.key === 'Enter') {
-        console.clear();
-        const topic = e.target.value
-        console.log(e.target.value);
+        if (input.value == "") {
+          while (container.firstChild) {
+            container.removeChild(container.firstChild); 
+          }
+          noResultsFound.classList.add("open");
+          return;
+        }
+        while (container.firstChild) {
+          container.removeChild(container.firstChild); 
+        }
+        noResultsFound.classList.remove("open");
+        const topic = input.value
         var link = 'https://newsapi.org/v2/everything?'+
             'q=' + topic + '&'+
-            'sortBy=popularity&'+
+            'sortBy=relevancy&'+
             'apiKey='+ api_key;
         fetch(link).then(res => res.json()).then(data => {
           data.articles.forEach(article => {
-            const newcard = cardTemplate.content.cloneNode(true);
+            
+            // Search result limiter
+            if (card_count == display_count) {
+              return; 
+            }
 
+            const newcard = cardTemplate.content.cloneNode(true);
+            
+            // Consider saving the UI by replacing overly long subheaders to "Unknown"
             const title = newcard.querySelector(".title");
             const author = newcard.querySelector(".data-author");
             const date = newcard.querySelector(".data-date");
             const company = newcard.querySelector(".data-company");
-            // if (article.author.includes(":")) {
-            //   author.textContent = "poo";
-            // }
-            // if (article.author.includes("@")) { //Some articles have emails in the author name, this tries to parse them and find the actual name
-            //   if (article.autor.indexOf("(") !== -1 && article.autor.indexOf(")") !== -1) {
-            //     var begin = article.autor.indexOf("(");
-            //     var end = article.autor.indexOf(")");
-            //     author.textContent = article.author.substring(begin + 1, end);
-            //   }
-            // } else {
-            //   author.textContent = article.author;
-            // }
             author.textContent = article.author;
             title.textContent = article.title;
             date.textContent = article.publishedAt.substring(0, 10);
             company.textContent = article.source.name;
             
-
-
             container.append(newcard);
+
+            card_count++;
+
+            console.log(card_count); 
           })
+          
+          if (card_count == 0) { // If no results found
+            noResultsFound.classList.add("open");
+          }
+
+          card_count = 0;
+          
            
         });
-        //searches multiple times
     }
   })
-  
-})
-
-
-
-// fetch("https://jsonplaceholder.typicode.com/users")
-//   .then(res => res.json())
-//   .then(data => {
-//     users = data.map(user => {
-//       const card = userCardTemplate.content.cloneNode(true).children[0]
-//       const header = card.querySelector("[data-header]")
-//       const body = card.querySelector("[data-body]")
-//       header.textContent = user.name
-//       body.textContent = user.email
-//       userCardContainer.append(card)
-//       return { name: user.name, email: user.email, element: card }
-//     })
-//   })
