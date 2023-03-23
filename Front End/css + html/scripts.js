@@ -106,6 +106,7 @@ let articles = []
         noResultsFound.classList.remove("open");
         const topic = input.value
         var link = 'https://newsapi.org/v2/everything?'+
+            'excludeDomains=lifehacker.com&' +
             'q=' + topic + '&'+
             'sortBy=relevancy&'+
             'apiKey='+ api_key;
