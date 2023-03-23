@@ -6,8 +6,8 @@ closeIcon = document.querySelector(".close-icon");
 title = document.querySelector(".header")
 postTitle = document.querySelector(".post-header")
 gearIcon = document.querySelector(".gear-icon");
-downIcon = document.querySelector(".down-icon");
-exitIcon = document.querySelector(".exit-icon");
+linkIcon = document.querySelector(".exit-icon");
+
 
 input = document.querySelector(".type-input")
 var api_key = "2729f7e2011b43d7be77e7b60bc97701";
@@ -21,6 +21,8 @@ displayAdd = document.querySelector(".plus-display-button");
 displaySubtract = document.querySelector(".minus-display-button");
 displayCounter = document.querySelector(".display-counter");
 noResultsFound = document.querySelector(".no-results-found");
+
+settingBox = document.querySelector(".setting-box");
 
 
 var search_state = false; 
@@ -38,13 +40,13 @@ searchIcon.addEventListener("click", () => {
     search_state = true;   
     
     gearIcon.classList.add("open");
-    downIcon.classList.add("open");
     displayCounter.classList.add("open");
     
     
 })
 
 closeIcon.addEventListener("click", () => {
+    settingBox.classList.remove("open");
     inputBox.classList.remove("open");
     title.classList.remove("hide");
     postTitle.classList.remove("open");
@@ -58,7 +60,6 @@ closeIcon.addEventListener("click", () => {
     input.value = ""
     noResultsFound.classList.remove("open");
     gearIcon.classList.remove("open");
-    downIcon.classList.remove("open");
     // displayCounter.style.display = "none";
     // gearIcon.classList.remove("rotate");
     
@@ -79,19 +80,33 @@ displaySubtract.addEventListener("click", () => {
 
 gearIcon.addEventListener("click", ()=> {
   gearIcon.classList.toggle("rotate");
+  settingBox.classList.toggle("open");
 })
 
-// exitIcon.addEventListener("click", ()=> {
-//   exitIcon.link(exitIcon.href);
-// })
+// FILTERS:
 
-downIcon.addEventListener("click", () => {
-  displayCounter.classList.toggle("open");
-  downIcon.classList.toggle("rotate");
-})
-
-
-
+function authorFilter(jsonAuthor) {
+  if (jsonAuthor === null) {
+    return "Unknown"
+  } else if (jsonAuthor.includes("http")) {
+    let link = jsonAuthor;
+    parts = link.split('/');
+    return parts[parts.length - 1];
+  } else if (jsonAuthor.includes("@")) {
+    const regex = /\(([^)]+)\)/;
+    const match = regex.exec(jsonAuthor);
+    return match[1];
+  } else { 
+    var to_return;
+    if (jsonAuthor.length >= 21) {
+      to_return = jsonAuthor.substring(0, 21) + "..."
+    } else {
+      to_return = jsonAuthor.substring(0, 21)
+    }
+    return to_return;
+  }
+  
+}
 
 // const searchInput = document.querySelector(".type-input")
 
@@ -113,6 +128,7 @@ let articles = []
         noResultsFound.classList.remove("open");
         const topic = input.value
         var link = 'https://newsapi.org/v2/everything?'+
+            'excludeDomains=lifehacker.com&' +
             'q=' + topic + '&'+
             'sortBy=relevancy&'+
             'apiKey='+ api_key;
@@ -131,13 +147,13 @@ let articles = []
            const author = newcard.querySelector(".data-author");
            const date = newcard.querySelector(".data-date");
            const company = newcard.querySelector(".data-company");
-           const exitIcon = newcard.querySelector(".exit-icon");
+           const linkIcon = newcard.querySelector(".exit-icon");
 
-           author.textContent = article.author;
+           author.textContent = authorFilter(article.author);
            title.textContent = article.title;
            date.textContent = article.publishedAt.substring(0, 10);
            company.textContent = article.source.name;
-           exitIcon.addEventListener('click', () => {
+           linkIcon.addEventListener('click', () => {
              window.open(article.url);
            });
 
@@ -149,6 +165,8 @@ let articles = []
           
           if (card_count == 0) { // If no results found
             noResultsFound.classList.add("open");
+            input.focus();
+            input.select()
           }
 
           card_count = 0;

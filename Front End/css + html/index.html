@@ -17,8 +17,7 @@
                         
     </head>
     
-    <body>
-        
+    <body> 
         <div class="header">
             <h1>SimpleNews</h1>
             <p class = "subheader">The news, but simpler.</p>
@@ -38,16 +37,10 @@
             </span>
             <i class="uil uil-times close-icon"></i>
             <i class="uil uil-setting gear-icon"></i>
-            <i class="uil uil-angle-double-down down-icon"></i>
             
         </div>
 
-        <div class = "display-counter"> 
-            <button type = "button" class = "minus-display-button"><i class="uil uil-angle-down minus-symbol"></i> &nbsp; </button>
-            Limiting Search to <span id = "counter-data"></span> articles 
-            &nbsp; <button type = "button" class = "plus-display-button"><i class="uil uil-angle-up plus-symbol"></i></button>
-            
-        </div>
+        
 
         
         <div class="card-container" card-grid>  
@@ -65,6 +58,15 @@
         </div>
 
         <div class="no-results-found"> No Articles Found. </div>
+        <div class = "setting-box">
+            <!-- <i class="uil uil-setting settings-header"></i> -->
+            <div class="settings-header">Search Options&nbsp;<i class="uil uil-setting settings-header"></i></div>
+            <div class = "display-counter"> 
+                
+                Search Limit <button type = "button" class = "minus-display-button"><i class="uil uil-angle-down minus-symbol"></i> </button> <span id = "counter-data"></span> 
+                <button type = "button" class = "plus-display-button"><i class="uil uil-angle-up plus-symbol"></i></button>
+            </div>
+        </div>
         
 
     </body>

@@ -185,15 +185,15 @@ input{
 .user-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25);
+  /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25); */
 }
 
 .card {
   opacity: 100;
-  transform: translateY(475px); 
+  transform: translateY(450px); 
   padding: 15px;
   background-color: #e5e5e5;
-  height: 100px;
+  height: 102px;
   width: 700px;
   border-radius: 15px;
   overflow: hidden;
@@ -201,6 +201,7 @@ input{
   box-shadow: 0 16px 32px 0 rgba(92, 91, 91, 0.2);
   margin: 15px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25);
+
 }
 
 .card.reveal {
@@ -208,7 +209,7 @@ input{
 }
 
 .card:hover  {
-  box-shadow: 0 0px 4px 0 #fff;
+  /* box-shadow: 0 0px 1px 0 #fff; */
   height: 140px;
 }
 
@@ -233,10 +234,12 @@ input{
   overflow: hidden;
   max-width: 590px;
   font-size: 22px;
-  color: #3e444b;
+  color: #363738;
   font-weight: bold;
   vertical-align: middle;
   transform: translateY(-95px);
+  margin-top: 4px;
+  margin-bottom: 3px;
 }
 
 .cardSubheader {
@@ -245,7 +248,7 @@ input{
   position: absolute;
   display: flex;
   flex-direction: row;
-  transform: translateY(-96px); 
+  transform: translateY(-94px); 
   vertical-align: center;
   font-weight: bold;
   color: #5a636c;
@@ -258,10 +261,11 @@ input{
 .display-counter {
   opacity: 0;
   color: #fff;
-  transform: translateY(450px);
+  transform: translateY(50px);
   font-size: 20px;
   margin-top: 0px;
   margin-bottom: -90px;
+  text-align: center;
   transition: all 0.3s ease-out;
 }
 
@@ -294,7 +298,7 @@ input{
 
 .no-results-found {
   display: none;
-  opacity: 0;
+  /* opacity: 0; */
   color: #fff;
   font-size: 50px;
   font-weight: bold;
@@ -302,7 +306,8 @@ input{
 }
 
 .no-results-found.open {
-  opacity: 100;
+  display: inline-block;
+  /* opacity: 100; */
 }
 
 .down-icon {
@@ -330,6 +335,38 @@ input{
   transform: translateY(-40px) rotate(-180deg);
 }
 
+.setting-box {
+
+  position: fixed;
+  width: 57.82575173477255vh;
+  height: 38.55050115651503vh;
+  background: none;
+  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); */
+  border-radius: 15px;
+  transform: translateX(-109%);
+  top: 21%;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+.setting-box.open {
+  opacity: 100;
+}
+
+.settings-header {
+  position: relative;
+  text-align: center;
+  color: #fffcfc;
+  justify-self: center;
+  font-size: 27.5px;
+  font-weight: bold;
+  transform: translateY(15px);
+  /* text-underline-position: under;
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+  text-decoration-thickness: 3px; */
+}
 
 
 
