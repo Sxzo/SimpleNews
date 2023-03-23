@@ -258,10 +258,11 @@ input{
 .display-counter {
   opacity: 0;
   color: #fff;
-  transform: translateY(450px);
+  transform: translateY(50px);
   font-size: 20px;
   margin-top: 0px;
   margin-bottom: -90px;
+  text-align: center;
   transition: all 0.3s ease-out;
 }
 
@@ -331,33 +332,28 @@ input{
 }
 
 .setting-box {
-  position: absolute;
-  width: 750px;
-  height: 500px;
-  background-color: #202020;
-  background: linear-gradient(to bottom, #333333, #232323);
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+
+  position: fixed;
+  width: 57.82575173477255vh;
+  height: 38.55050115651503vh;
+  background: none;
+  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); */
   border-radius: 15px;
   transform: translateX(-109%);
-  top: 25%;
+  top: 21%;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.settings-close {
-  cursor: pointer;
-  position: absolute;
-  color: #66a6ff;
-  /* color: #fff; */
-  padding: 5px;
-  font-size: 35px;
-  left: 93.5%;
-  top: -2%;
 
+.setting-box.open {
+  opacity: 100;
 }
 
 .settings-header {
   position: relative;
   text-align: center;
-  color: #d1d0d0;
+  color: #fffcfc;
   justify-self: center;
   font-size: 27.5px;
   font-weight: bold;
