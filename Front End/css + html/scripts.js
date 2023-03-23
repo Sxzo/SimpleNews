@@ -83,8 +83,19 @@ gearIcon.addEventListener("click", ()=> {
   settingBox.classList.toggle("open");
 })
 
+// FILTERS:
 
-
+function authorFilter(jsonAuthor) {
+  if (jsonAuthor === null) {
+    return "Unavailable"
+  } else if (jsonAuthor.includes("http")) {
+    let link = jsonAuthor;
+    parts = link.split('/');
+    return parts[parts.length - 1];
+  } else {
+    return jsonAuthor;
+  }
+}
 
 // const searchInput = document.querySelector(".type-input")
 
@@ -127,12 +138,11 @@ let articles = []
            const company = newcard.querySelector(".data-company");
            const linkIcon = newcard.querySelector(".exit-icon");
 
-           author.textContent = article.author;
+           author.textContent = authorFilter(article.author);
            title.textContent = article.title;
            date.textContent = article.publishedAt.substring(0, 10);
            company.textContent = article.source.name;
            linkIcon.addEventListener('click', () => {
-
              window.open(article.url);
            });
 
@@ -144,6 +154,8 @@ let articles = []
           
           if (card_count == 0) { // If no results found
             noResultsFound.classList.add("open");
+            input.focus();
+            input.select()
           }
 
           card_count = 0;
