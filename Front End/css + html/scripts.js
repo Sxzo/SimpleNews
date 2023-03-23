@@ -7,6 +7,7 @@ title = document.querySelector(".header")
 postTitle = document.querySelector(".post-header")
 gearIcon = document.querySelector(".gear-icon");
 downIcon = document.querySelector(".down-icon");
+exitIcon = document.querySelector(".exit-icon");
 
 input = document.querySelector(".type-input")
 var api_key = "2729f7e2011b43d7be77e7b60bc97701";
@@ -80,6 +81,10 @@ gearIcon.addEventListener("click", ()=> {
   gearIcon.classList.toggle("rotate");
 })
 
+// exitIcon.addEventListener("click", ()=> {
+//   exitIcon.link(exitIcon.href);
+// })
+
 downIcon.addEventListener("click", () => {
   displayCounter.classList.toggle("open");
   downIcon.classList.toggle("rotate");
@@ -121,21 +126,25 @@ let articles = []
 
             const newcard = cardTemplate.content.cloneNode(true);
             
-            // Consider saving the UI by replacing overly long subheaders to "Unknown"
-            const title = newcard.querySelector(".title");
-            const author = newcard.querySelector(".data-author");
-            const date = newcard.querySelector(".data-date");
-            const company = newcard.querySelector(".data-company");
-            author.textContent = article.author;
-            title.textContent = article.title;
-            date.textContent = article.publishedAt.substring(0, 10);
-            company.textContent = article.source.name;
-            
+           // Consider saving the UI by replacing overly long subheaders to "Unknown"
+           const title = newcard.querySelector(".title");
+           const author = newcard.querySelector(".data-author");
+           const date = newcard.querySelector(".data-date");
+           const company = newcard.querySelector(".data-company");
+           const exitIcon = newcard.querySelector(".exit-icon");
+
+           author.textContent = article.author;
+           title.textContent = article.title;
+           date.textContent = article.publishedAt.substring(0, 10);
+           company.textContent = article.source.name;
+           exitIcon.addEventListener('click', () => {
+             window.open(article.url);
+           });
+
             container.append(newcard);
 
             card_count++;
 
-            console.log(card_count); 
           })
           
           if (card_count == 0) { // If no results found
