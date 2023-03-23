@@ -87,14 +87,25 @@ gearIcon.addEventListener("click", ()=> {
 
 function authorFilter(jsonAuthor) {
   if (jsonAuthor === null) {
-    return "Unavailable"
+    return "Unknown"
   } else if (jsonAuthor.includes("http")) {
     let link = jsonAuthor;
     parts = link.split('/');
     return parts[parts.length - 1];
-  } else {
-    return jsonAuthor;
+  } else if (jsonAuthor.includes("@")) {
+    const regex = /\(([^)]+)\)/;
+    const match = regex.exec(jsonAuthor);
+    return match[1];
+  } else { 
+    var to_return;
+    if (jsonAuthor.length >= 21) {
+      to_return = jsonAuthor.substring(0, 21) + "..."
+    } else {
+      to_return = jsonAuthor.substring(0, 21)
+    }
+    return to_return;
   }
+  
 }
 
 // const searchInput = document.querySelector(".type-input")
