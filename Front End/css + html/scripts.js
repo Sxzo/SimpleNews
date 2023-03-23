@@ -8,6 +8,7 @@ postTitle = document.querySelector(".post-header")
 gearIcon = document.querySelector(".gear-icon");
 linkIcon = document.querySelector(".exit-icon");
 
+
 input = document.querySelector(".type-input")
 var api_key = "2729f7e2011b43d7be77e7b60bc97701";
 
@@ -85,8 +86,6 @@ gearIcon.addEventListener("click", ()=> {
 
 
 
-
-
 // const searchInput = document.querySelector(".type-input")
 
 let articles = []
@@ -132,6 +131,7 @@ let articles = []
            date.textContent = article.publishedAt.substring(0, 10);
            company.textContent = article.source.name;
            linkIcon.addEventListener('click', () => {
+
              window.open(article.url);
            });
 
