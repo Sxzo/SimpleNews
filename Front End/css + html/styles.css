@@ -330,6 +330,43 @@ input{
   transform: translateY(-40px) rotate(-180deg);
 }
 
+.setting-box {
+  position: absolute;
+  width: 750px;
+  height: 500px;
+  background-color: #202020;
+  background: linear-gradient(to bottom, #333333, #232323);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  transform: translateX(-109%);
+  top: 25%;
+}
+
+.settings-close {
+  cursor: pointer;
+  position: absolute;
+  color: #66a6ff;
+  /* color: #fff; */
+  padding: 5px;
+  font-size: 35px;
+  left: 93.5%;
+  top: -2%;
+
+}
+
+.settings-header {
+  position: relative;
+  text-align: center;
+  color: #d1d0d0;
+  justify-self: center;
+  font-size: 27.5px;
+  font-weight: bold;
+  transform: translateY(15px);
+  /* text-underline-position: under;
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+  text-decoration-thickness: 3px; */
+}
 
 
 
