@@ -1,5 +1,3 @@
-// const userCardTemplate = document.querySelector("[data-user-template]")
-// const userCardContainer = document.querySelector("[data-user-cards-container]")
 let inputBox = document.querySelector(".input-box"),
 searchIcon = document.querySelector(".icon"),
 closeIcon = document.querySelector(".close-icon");
@@ -7,6 +5,7 @@ title = document.querySelector(".header")
 postTitle = document.querySelector(".post-header")
 gearIcon = document.querySelector(".gear-icon");
 linkIcon = document.querySelector(".exit-icon");
+// downIcon = document.querySelector(".down-icon");
 
 
 input = document.querySelector(".type-input")
@@ -24,6 +23,11 @@ noResultsFound = document.querySelector(".no-results-found");
 
 settingBox = document.querySelector(".setting-box");
 
+enButton = document.querySelector(".en-button");
+esButton = document.querySelector(".es-button");
+zhButton = document.querySelector(".zh-button");
+
+var language = "en"; 
 
 var search_state = false; 
 var display_count = 5; 
@@ -83,6 +87,36 @@ gearIcon.addEventListener("click", ()=> {
   settingBox.classList.toggle("open");
 })
 
+// downIcon.addEventListener("click", () => {
+//   displayCounter.classList.toggle("open");
+//   downIcon.classList.toggle("rotate");
+// })
+
+enButton.classList.add("press");
+
+enButton.addEventListener("click", ()=> { // Language = English
+  language = "en";
+  enButton.classList.add("press");
+  esButton.classList.remove("press");
+  zhButton.classList.remove("press");
+})
+
+esButton.addEventListener("click", ()=> { // Language = Spanish
+  language = "es";
+  esButton.classList.add("press");
+  enButton.classList.remove("press");
+  zhButton.classList.remove("press");
+})
+
+zhButton.addEventListener("click", ()=> { // // Language = Chinese
+  language = "zh";
+  zhButton.classList.add("press");
+  enButton.classList.remove("press");
+  esButton.classList.remove("press");
+})
+
+
+
 // FILTERS:
 
 function authorFilter(jsonAuthor) {
@@ -129,6 +163,7 @@ let articles = []
         const topic = input.value
         var link = 'https://newsapi.org/v2/everything?'+
             'excludeDomains=lifehacker.com&' +
+            'language=' + language + '&' +
             'from=2023-03-20&' +
             'q=' + topic + '&'+
             'sortBy=relevancy&'+
