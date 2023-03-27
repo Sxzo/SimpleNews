@@ -29,7 +29,7 @@
     color: #fff;
     text-align: center;
     font-size: 40px;
-    transition: all 0.5s ease-out;
+    transition: all 0.4s ease-out;
 }
 
 .post-header {
@@ -49,8 +49,8 @@
 }
 
 .header.hide {
-  transition: all 0.3s ease-in;
-  opacity: 0;
+  /* transition: all 0.3s ease-in; */
+  scale: 0;
 }
 
 body{
@@ -182,11 +182,6 @@ input{
   transform: translateY(-50%) rotate(180deg);
 }
 
-.user-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25); */
-}
 
 .card {
   opacity: 100;
@@ -201,7 +196,6 @@ input{
   box-shadow: 0 16px 32px 0 rgba(92, 91, 91, 0.2);
   margin: 15px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25);
-
 }
 
 .card.reveal {
@@ -338,12 +332,14 @@ input{
 .setting-box {
 
   position: fixed;
-  width: 57.82575173477255vh;
-  height: 38.55050115651503vh;
+  /* width: 57.82575173477255vh;
+  height: 38.55050115651503vh; */
   background: none;
   /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); */
   border-radius: 15px;
-  transform: translateX(-109%);
+  transform: translateX(-325%);
+  justify-content: center;
+  align-items: vertical;
   top: 21%;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);

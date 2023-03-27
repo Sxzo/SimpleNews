@@ -129,6 +129,7 @@ let articles = []
         const topic = input.value
         var link = 'https://newsapi.org/v2/everything?'+
             'excludeDomains=lifehacker.com&' +
+            'from=2023-03-20&' +
             'q=' + topic + '&'+
             'sortBy=relevancy&'+
             'apiKey='+ api_key;
