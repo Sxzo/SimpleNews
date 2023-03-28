@@ -166,7 +166,7 @@ let articles = []
             'language=' + language + '&' +
             'from=2023-03-20&' +
             'q=' + topic + '&'+
-            'sortBy=relevancy&'+
+            'sortBy=publishedAt&'+
             'apiKey='+ api_key;
         fetch(link).then(res => res.json()).then(data => {
           data.articles.forEach(article => {
