@@ -299,6 +299,7 @@ input{
 .setting-box {
 
   position: fixed;
+  /* left: 55%; */
   /* width: 57.82575173477255vh;
   height: 38.55050115651503vh; */
   width: 250px;
@@ -347,6 +348,15 @@ input{
   /* box-shadow: 0 0px 16px 0 rgba(92, 91, 91, 0.2);  */
 }
 
+.display-counter-data {
+  color: #fff;
+  transform: translateY(50px);
+  font-size: 20px;
+  font-weight: lighter;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+
 /* .display-counter:hover {
   box-shadow: 0 0px 12px 0 #66a6ff;
 } */
@@ -359,21 +369,13 @@ input{
   /* display: "inline-block"; */
 }
 
-.minus-display-button {
+.minus-display-button, .plus-display-button {
   cursor: pointer;
   color: #66a6ff;
   font-size: 30px;
   background: none;
   border: none;
   transform: translateY(4px);
-}
-.plus-display-button {
-  transform: translateY(4px);
-  cursor: pointer;
-  font-size: 30px;
-  color: #66a6ff;
-  background: none;
-  border: none;
 }
 
 
@@ -383,7 +385,7 @@ input{
   color: #fff;
   font-size: 20px;
   text-align: center;
-  transform: translateY(75px);
+  transform: translateY(140px);
   /* background-color: rgba(92, 91, 91, 0.2); */
   height: 175px;
   border-radius: 15px;
@@ -424,6 +426,32 @@ input{
 .en-button.press, .es-button.press, .zh-button.press {
   color: #66a6ff;
   box-shadow: 0 0 6px 0 #66a6ff;
+}
+
+.recency-button {
+  color: #fff;
+  transform: translateY(-90px);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+
+.recency-data-display {
+  color: #fff;
+  transform: translateY(-90px);
+  font-size: 20px;
+  font-weight: lighter;
+  text-align: center;
+  transition: all 0.3s ease-out;
+}
+
+.recency-plus, .recency-minus {
+  cursor: pointer;
+  color: #66a6ff;
+  font-size: 20px;
+  background: none;
+  border: none;
 }
 
 

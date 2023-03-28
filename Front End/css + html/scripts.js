@@ -27,12 +27,30 @@ enButton = document.querySelector(".en-button");
 esButton = document.querySelector(".es-button");
 zhButton = document.querySelector(".zh-button");
 
+recencyData = document.getElementById("recency-data");
+recencyData.innerHTML = "1 Week";
+recencyAdd = document.querySelector(".recency-plus");
+recencySubtract = document.querySelector(".recency-minus");
+
 var language = "en"; 
 
 var search_state = false; 
 var display_count = 5; 
 var card_count = 0;
 var display_count_max = 50;
+var today = new Date();
+today.setDate(today.getDate() - 7);
+var date = today.getFullYear()+'-'+(today.getMonth() + 1)+'-'+today.getDate();
+console.log(date);
+var week_distance = 1; 
+
+
+// Set Initial Values
+if (week_distance == 1) {
+  recencyData.innerHTML = week_distance + " Week";
+} else {
+  recencyData.innerHTML = week_distance + " Weeks";
+}
 
 displayCounterData.innerHTML = display_count; 
 
@@ -79,6 +97,34 @@ displaySubtract.addEventListener("click", () => {
   if (display_count == 5) return;
   display_count -= 5;
   displayCounterData.innerHTML = display_count; 
+})
+
+// recencyData = document.getElementById("recency-data");
+// recencyData.innerHTML = "1 Week";
+// recencyAdd = document.querySelector(".recency-plus");
+// recencySubtract = document.querySelector(".recency-minus");
+
+recencyAdd.addEventListener("click", () => {
+  if (week_distance == 4) return; 
+  
+  week_distance++; 
+  date = increaseWeeks();
+  if (week_distance == 1) {
+    recencyData.innerHTML = week_distance + " Week";
+  } else {
+    recencyData.innerHTML = week_distance + " Weeks";
+  }
+})
+
+recencySubtract.addEventListener("click", () => {
+  if (week_distance == 1) return;
+  week_distance--;
+  date = decreaseWeeks();
+  if (week_distance == 1) {
+    recencyData.innerHTML = week_distance + " Week";
+  } else {
+    recencyData.innerHTML = week_distance + " Weeks";
+  }
 })
 
 
@@ -146,6 +192,20 @@ function authorFilter(jsonAuthor) {
 
 let articles = []
 
+
+function increaseWeeks() {
+
+  today.setDate(today.getDate() - 7);
+  date = today.getFullYear()+'-'+(today.getMonth() + 1)+'-'+today.getDate();
+  return date; 
+}
+
+function decreaseWeeks() {
+  today.setDate(today.getDate() + 7);
+  date = today.getFullYear()+'-'+(today.getMonth() + 1)+'-'+today.getDate();
+  return date;
+}
+
 //When user searches, generates cards from api:
   input.addEventListener("keyup", function(event) {
     if (event.key === 'Enter') {
@@ -164,10 +224,11 @@ let articles = []
         var link = 'https://newsapi.org/v2/everything?'+
             'excludeDomains=lifehacker.com&' +
             'language=' + language + '&' +
-            'from=2023-03-20&' +
+            'from=' + date + '&' +
             'q=' + topic + '&'+
-            'sortBy=publishedAt&'+
+            'sortBy=relevancy&'+
             'apiKey='+ api_key;
+        console.log(date);
         fetch(link).then(res => res.json()).then(data => {
           data.articles.forEach(article => {
             
