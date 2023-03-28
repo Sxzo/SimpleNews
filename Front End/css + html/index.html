@@ -12,7 +12,7 @@
                 
         <!-- Unicons CSS -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
         <script src="scripts.js" defer></script>
                         
     </head>
@@ -37,6 +37,7 @@
             </span>
             <i class="uil uil-times close-icon"></i>
             <i class="uil uil-setting gear-icon"></i>
+            <!-- <i class="uil uil-angle-double-down down-icon"></i> -->
             
         </div>
 
@@ -60,11 +61,25 @@
         <div class="no-results-found"> No Articles Found. </div>
         <div class = "setting-box">
             <!-- <i class="uil uil-setting settings-header"></i> -->
-            <div class="settings-header">Search Options&nbsp;<i class="uil uil-setting settings-header"></i></div>
+            <div class="settings-header">Search Options <i class="uil uil-setting settings-header"></i></div>
             <div class = "display-counter"> 
-                
-                Search Limit <button type = "button" class = "minus-display-button"><i class="uil uil-angle-down minus-symbol"></i> </button> <span id = "counter-data"></span> 
+                &nbsp;Search Limit <button type = "button" class = "minus-display-button"><i class="uil uil-angle-down minus-symbol"></i> </button> <span id = "counter-data" class="display-counter-data"></span> 
                 <button type = "button" class = "plus-display-button"><i class="uil uil-angle-up plus-symbol"></i></button>
+            </div>
+            <div class = "language-select">
+                <div class = "language-header">Language</div>
+                <!-- <i class="uil uil-english-to-chinese language-header"></i> -->
+                <div class="language-buttons">
+                    <button type = "button" class = "en-button">English</button>&nbsp;
+                    <button type = "button" class = "es-button">Spanish</button>&nbsp;
+                    <button type = "button" class = "zh-button">Chinese</button>&nbsp;
+                </div>
+            </div>
+            <div class="recency-button"> 
+                 
+                Recency &nbsp; <button type = "button" class = "recency-minus"><i class="uil uil-minus recency-minus"></i> </button>
+                <span id = "recency-data" class = "recency-data-display"></span> 
+                <button type = "button" class = "recency-plus"><i class="uil uil-plus recency-plus"></i></button>
             </div>
         </div>
         

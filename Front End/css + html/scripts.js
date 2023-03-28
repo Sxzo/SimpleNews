@@ -1,5 +1,3 @@
-// const userCardTemplate = document.querySelector("[data-user-template]")
-// const userCardContainer = document.querySelector("[data-user-cards-container]")
 let inputBox = document.querySelector(".input-box"),
 searchIcon = document.querySelector(".icon"),
 closeIcon = document.querySelector(".close-icon");
@@ -7,6 +5,7 @@ title = document.querySelector(".header")
 postTitle = document.querySelector(".post-header")
 gearIcon = document.querySelector(".gear-icon");
 linkIcon = document.querySelector(".exit-icon");
+// downIcon = document.querySelector(".down-icon");
 
 
 input = document.querySelector(".type-input")
@@ -24,11 +23,34 @@ noResultsFound = document.querySelector(".no-results-found");
 
 settingBox = document.querySelector(".setting-box");
 
+enButton = document.querySelector(".en-button");
+esButton = document.querySelector(".es-button");
+zhButton = document.querySelector(".zh-button");
+
+recencyData = document.getElementById("recency-data");
+recencyData.innerHTML = "1 Week";
+recencyAdd = document.querySelector(".recency-plus");
+recencySubtract = document.querySelector(".recency-minus");
+
+var language = "en"; 
 
 var search_state = false; 
 var display_count = 5; 
 var card_count = 0;
 var display_count_max = 50;
+var today = new Date();
+today.setDate(today.getDate() - 7);
+var date = today.getFullYear()+'-'+(today.getMonth() + 1)+'-'+today.getDate();
+console.log(date);
+var week_distance = 1; 
+
+
+// Set Initial Values
+if (week_distance == 1) {
+  recencyData.innerHTML = week_distance + " Week";
+} else {
+  recencyData.innerHTML = week_distance + " Weeks";
+}
 
 displayCounterData.innerHTML = display_count; 
 
@@ -77,11 +99,69 @@ displaySubtract.addEventListener("click", () => {
   displayCounterData.innerHTML = display_count; 
 })
 
+// recencyData = document.getElementById("recency-data");
+// recencyData.innerHTML = "1 Week";
+// recencyAdd = document.querySelector(".recency-plus");
+// recencySubtract = document.querySelector(".recency-minus");
+
+recencyAdd.addEventListener("click", () => {
+  if (week_distance == 4) return; 
+  
+  week_distance++; 
+  date = increaseWeeks();
+  if (week_distance == 1) {
+    recencyData.innerHTML = week_distance + " Week";
+  } else {
+    recencyData.innerHTML = week_distance + " Weeks";
+  }
+})
+
+recencySubtract.addEventListener("click", () => {
+  if (week_distance == 1) return;
+  week_distance--;
+  date = decreaseWeeks();
+  if (week_distance == 1) {
+    recencyData.innerHTML = week_distance + " Week";
+  } else {
+    recencyData.innerHTML = week_distance + " Weeks";
+  }
+})
+
 
 gearIcon.addEventListener("click", ()=> {
   gearIcon.classList.toggle("rotate");
   settingBox.classList.toggle("open");
 })
+
+// downIcon.addEventListener("click", () => {
+//   displayCounter.classList.toggle("open");
+//   downIcon.classList.toggle("rotate");
+// })
+
+enButton.classList.add("press");
+
+enButton.addEventListener("click", ()=> { // Language = English
+  language = "en";
+  enButton.classList.add("press");
+  esButton.classList.remove("press");
+  zhButton.classList.remove("press");
+})
+
+esButton.addEventListener("click", ()=> { // Language = Spanish
+  language = "es";
+  esButton.classList.add("press");
+  enButton.classList.remove("press");
+  zhButton.classList.remove("press");
+})
+
+zhButton.addEventListener("click", ()=> { // // Language = Chinese
+  language = "zh";
+  zhButton.classList.add("press");
+  enButton.classList.remove("press");
+  esButton.classList.remove("press");
+})
+
+
 
 // FILTERS:
 
@@ -112,6 +192,20 @@ function authorFilter(jsonAuthor) {
 
 let articles = []
 
+
+function increaseWeeks() {
+
+  today.setDate(today.getDate() - 7);
+  date = today.getFullYear()+'-'+(today.getMonth() + 1)+'-'+today.getDate();
+  return date; 
+}
+
+function decreaseWeeks() {
+  today.setDate(today.getDate() + 7);
+  date = today.getFullYear()+'-'+(today.getMonth() + 1)+'-'+today.getDate();
+  return date;
+}
+
 //When user searches, generates cards from api:
   input.addEventListener("keyup", function(event) {
     if (event.key === 'Enter') {
@@ -129,9 +223,12 @@ let articles = []
         const topic = input.value
         var link = 'https://newsapi.org/v2/everything?'+
             'excludeDomains=lifehacker.com&' +
+            'language=' + language + '&' +
+            'from=' + date + '&' +
             'q=' + topic + '&'+
             'sortBy=relevancy&'+
             'apiKey='+ api_key;
+        console.log(date);
         fetch(link).then(res => res.json()).then(data => {
           data.articles.forEach(article => {
             
