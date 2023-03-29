@@ -241,12 +241,9 @@ function decreaseWeeks() {
             
            // Consider saving the UI by replacing overly long subheaders to "Unknown"
            const title = newcard.querySelector(".title");
-           const author = newcard.querySelector(".data-author");
            const date = newcard.querySelector(".data-date");
            const company = newcard.querySelector(".data-company");
            const linkIcon = newcard.querySelector(".exit-icon");
-
-           author.textContent = authorFilter(article.author);
            title.textContent = article.title;
            date.textContent = article.publishedAt.substring(0, 10);
            company.textContent = article.source.name;

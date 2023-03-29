@@ -188,7 +188,7 @@ input{
   transform: translateY(450px); 
   padding: 15px;
   background-color: #e5e5e5;
-  height: 102px;
+  height: 140px;
   width: 700px;
   border-radius: 15px;
   overflow: hidden;
@@ -226,12 +226,12 @@ input{
   /* text-align: center; */
   height: 100px;
   overflow: hidden;
-  max-width: 590px;
+  max-width: 575px;
   font-size: 22px;
   color: #363738;
   font-weight: bold;
   vertical-align: middle;
-  transform: translateY(-95px);
+  transform: translateY(-140px);
   margin-top: 4px;
   margin-bottom: 3px;
 }
@@ -242,7 +242,7 @@ input{
   position: absolute;
   display: flex;
   flex-direction: row;
-  transform: translateY(-94px); 
+  transform: translateY(-145px); 
   vertical-align: center;
   font-weight: bold;
   color: #5a636c;
@@ -252,7 +252,45 @@ input{
   color: #388bff;
 }
 
+.reliability-meter {
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  left: 87.5%;
+  top: -20%;
+  overflow: hidden;
+  font-size: 13px;
+  color: #363738;
+  /* font-weight: bold; */
+  vertical-align: middle;
+  /* transform: translateX(500px); */
+  margin-top: 4px;
+  margin-bottom: 3px;
+  width: 100px;
+  background-color: #50c852;
+  color: white;
+  border-radius: 15px;
+}
 
+.bias-meter {
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  left: 87.5%;
+  top: -17%;
+  overflow: hidden;
+  font-size: 13px;
+  color: #363738;
+  /* font-weight: bold; */
+  vertical-align: middle;
+  /* transform: translateX(500px); */
+  margin-top: 4px;
+  margin-bottom: 3px;
+  width: 100px;
+  background-color: #717171;
+  color: white;
+  border-radius: 15px;
+}
 
 
 
