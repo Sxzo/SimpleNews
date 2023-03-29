@@ -164,31 +164,27 @@ zhButton.addEventListener("click", ()=> { // // Language = Chinese
 
 
 // FILTERS:
-
-function authorFilter(jsonAuthor) {
-  if (jsonAuthor === null) {
-    return "Unknown"
-  } else if (jsonAuthor.includes("http")) {
-    let link = jsonAuthor;
-    parts = link.split('/');
-    return parts[parts.length - 1];
-  } else if (jsonAuthor.includes("@")) {
-    const regex = /\(([^)]+)\)/;
-    const match = regex.exec(jsonAuthor);
-    return match[1];
-  } else { 
-    var to_return;
-    if (jsonAuthor.length >= 21) {
-      to_return = jsonAuthor.substring(0, 21) + "..."
-    } else {
-      to_return = jsonAuthor.substring(0, 21)
-    }
-    return to_return;
-  }
-  
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const suffix = getDaySuffix(day);
+  return `${month} ${day}${suffix}, ${year}`;
 }
 
-// const searchInput = document.querySelector(".type-input")
+function getDaySuffix(day) {
+  if (day >= 11 && day <= 13) {
+    return "th";
+  }
+  switch (day % 10) {
+    case 1: return "st";
+    case 2: return "nd";
+    case 3: return "rd";
+    default: return "th";
+  }
+}
 
 let articles = []
 
@@ -228,7 +224,6 @@ function decreaseWeeks() {
             'q=' + topic + '&'+
             'sortBy=relevancy&'+
             'apiKey='+ api_key;
-        console.log(date);
         fetch(link).then(res => res.json()).then(data => {
           data.articles.forEach(article => {
             
@@ -237,16 +232,16 @@ function decreaseWeeks() {
               return; 
             }
 
-            const newcard = cardTemplate.content.cloneNode(true);
-            
-           // Consider saving the UI by replacing overly long subheaders to "Unknown"
+          const newcard = cardTemplate.content.cloneNode(true);
+           const company = newcard.querySelector(".data-company"); 
            const title = newcard.querySelector(".title");
            const date = newcard.querySelector(".data-date");
-           const company = newcard.querySelector(".data-company");
            const linkIcon = newcard.querySelector(".exit-icon");
+
            title.textContent = article.title;
-           date.textContent = article.publishedAt.substring(0, 10);
+           date.textContent = formatDate(article.publishedAt.substring(0, 10));
            company.textContent = article.source.name;
+
            linkIcon.addEventListener('click', () => {
              window.open(article.url);
            });
