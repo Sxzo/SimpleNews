@@ -337,7 +337,7 @@ input{
   width: 325px;
   height: 340px;
   background: none;
-  box-shadow: 0 0px 50px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 50px 0 rgba(0, 0, 0, 0.3);
   border-radius: 25px;
   /* transform: translateX(-325%); */
   justify-content: center;
@@ -352,7 +352,7 @@ input{
 
 
 .setting-box.open {
-  opacity: 100;
+  opacity: 100%;
 }
 
 .settings-header {
