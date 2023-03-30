@@ -177,19 +177,36 @@ input.addEventListener("keyup", function(event) {
               return; 
             }
 
-           const newcard = cardTemplate.content.cloneNode(true);
-           const company = newcard.querySelector(".data-company"); 
-           const title = newcard.querySelector(".title");
-           const date = newcard.querySelector(".data-date");
-           const linkIcon = newcard.querySelector(".exit-icon");
-
-           title.textContent = article.title;
-           date.textContent = formatDate(article.publishedAt.substring(0, 10));
-           company.textContent = article.source.name;
-
-           linkIcon.addEventListener('click', () => {
-             window.open(article.url);
-           });
+            const newcard = cardTemplate.content.cloneNode(true);
+            const company = newcard.querySelector(".data-company"); 
+            const title = newcard.querySelector(".title");
+            const date = newcard.querySelector(".data-date");
+            const linkIcon = newcard.querySelector(".exit-icon");
+            const card = newcard.querySelector(".card");
+            const subheader = newcard.querySelector(".cardSubheader");
+ 
+            title.textContent = article.title;
+            date.textContent = formatDate(article.publishedAt.substring(0, 10));
+            company.textContent = article.source.name;
+ 
+            linkIcon.addEventListener('click', () => {
+              window.open(article.url);
+            });
+ 
+            titleLength = article.title.length;
+ 
+            if (titleLength >= 100) {
+             card.style.height = 165 + "px";
+             title.style.transform = "translateY(-130px)";
+             subheader.style.transform = "translateY(-120px)";
+             // card.addEventListener('mouseover', () => {
+             //   card.style.height = 155 + "px";
+             // });
+             
+             // card.addEventListener('mouseout', () => {
+             //   card.style.height = 120 + "px";
+             // });
+            }
 
             container.append(newcard);
 
