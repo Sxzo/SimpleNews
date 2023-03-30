@@ -331,19 +331,23 @@ input{
 .setting-box {
 
   position: fixed;
-  right: 78%;
+  right: 75%;
   /* width: 57.82575173477255vh;
   height: 38.55050115651503vh; */
-  width: 250px;
+  width: 325px;
+  height: 340px;
   background: none;
-  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); */
-  border-radius: 15px;
+  box-shadow: 0 0px 50px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
   /* transform: translateX(-325%); */
   justify-content: center;
   align-items: vertical;
   top: 21%;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.3s ease-in;
+  /* background-color: #353434; */
+  background: linear-gradient(to bottom, #333333, #212121);
+  /* background-color: #1b1b1b; */
 }
 
 
@@ -363,19 +367,34 @@ input{
   /* text-underline-position: under;
   text-decoration: underline;
   text-underline-offset: 2.5px;
-  text-decoration-thickness: 3px; */
+  text-decoration-thickness: 1px; */
+}
+
+.setting-line {
+  border: none;
+  background-color: #66a6ff;
+  height: 1.25px;
+  position: relative;
+  transform: translateY(25px) ;
+  box-shadow: 0 0px 1px 0 #66a6ff;
 }
 
 .display-counter {
-  opacity: 0;
+  /* opacity: 0;
   color: #fff;
-  transform: translateY(50px);
+  transform: translateY(160px);
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   transition: all 0.3s ease-out;
   border-radius: 15px;
-  height: 52.5px;
+  height: 52.5px; */
+  color: #fff;
+  transform: translateY(160px);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease-out;
   /* background-color: rgba(20, 20, 20, 0.2); */
   /* box-shadow: 0 0px 16px 0 rgba(92, 91, 91, 0.2);  */
 }
@@ -417,9 +436,9 @@ input{
   color: #fff;
   font-size: 20px;
   text-align: center;
-  transform: translateY(140px);
+  transform: translateY(15px);
   /* background-color: rgba(92, 91, 91, 0.2); */
-  height: 175px;
+  /* height: 175px; */
   border-radius: 15px;
   transition: all 0.3s ease-out;
   
@@ -439,16 +458,16 @@ input{
   background-color: #fff;
   font-size: 15px;
   width: 85px;
-  height: 30px;
-  border-radius: 15px;
+  height: 25px;
+  border-radius: 7.5px;
   border: none;
   transform: translateY(20px);
   /* transition: all 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
 }
 
-.zh-button {
+/* .zh-button {
   transform: translateY(30px);
-}
+} */
 
 .en-button.press, .es-button.press, .zh-button.press {
   color: #66a6ff;
@@ -457,7 +476,7 @@ input{
 
 .recency-button {
   color: #fff;
-  transform: translateY(-90px);
+  transform: translateY(140px);
   font-size: 20px;
   font-weight: bold;
   text-align: center;
