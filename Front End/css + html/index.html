@@ -13,7 +13,10 @@
         <!-- Unicons CSS -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-        <script src="scripts.js" defer></script>
+
+        <!-- Backend -->
+        <script src="\Backend\SearchUI.js" defer></script>
+        <script src="\Backend\MainUI.js" defer></script>
                         
     </head>
     
@@ -48,20 +51,28 @@
             <template class = "card-template"> 
                     <div class="card"> 
                         <i class="uil uil-external-link-alt exit-icon"> <div class = "data-link"></div></i>
+                        <div class="reliability-meter">10.0</div>
+                        <div class="bias-meter">Unbiased</div>
                         <div class="title"></div> 
-                        <div class="cardSubheader"> 
-                            <i class="uil uil-edit-alt subicon"></i> &nbsp; <div class = "data-author">  </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="uil uil-schedule subicon"></i> &nbsp; <div class = "data-date">  </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="uil uil-newspaper subicon"></i> &nbsp; <div class = "data-company"> </div>  
+                        <div class="cardSubheader">
+                            <i class="uil uil-newspaper subicon"></i> &nbsp; <div class = "data-company"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="uil uil-schedule subicon"></i> &nbsp; <div class = "data-date">  </div> 
+                              
                         </div>
                     </div>
             </template>
         </div>
 
         <div class="no-results-found"> No Articles Found. </div>
+
+
+
+
+
         <div class = "setting-box">
             <!-- <i class="uil uil-setting settings-header"></i> -->
             <div class="settings-header">Search Options <i class="uil uil-setting settings-header"></i></div>
+            <hr class = "setting-line">
             <div class = "display-counter"> 
                 &nbsp;Search Limit <button type = "button" class = "minus-display-button"><i class="uil uil-angle-down minus-symbol"></i> </button> <span id = "counter-data" class="display-counter-data"></span> 
                 <button type = "button" class = "plus-display-button"><i class="uil uil-angle-up plus-symbol"></i></button>
