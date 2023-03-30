@@ -40,5 +40,4 @@ gearIcon.addEventListener("click", ()=> {
     gearIcon.classList.toggle("rotate");
     settingBox.classList.toggle("open");
 })
-
   
