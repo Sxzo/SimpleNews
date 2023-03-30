@@ -65,6 +65,7 @@ body{
   /* background-image: linear-gradient(120deg, #4070f4 0%, #66a6ff 100%);   */
   /* background-image: linear-gradient(to right, #243949 0%, #517fa4 100%); */
   background: linear-gradient(to bottom, #333333, #1a1a1a);
+  /* background: background-image: linear-gradient(60deg, #29323c 0%, #485563 100%); */
   /* background: linear-gradient(to bottom, #a7a7a7, #808080);
   background-color: #333;  */
   /* background: linear-gradient(to bottom, #bebebe, #bdbdbd);
@@ -268,7 +269,7 @@ input{
   margin-top: 4px;
   margin-bottom: 3px;
   width: 100px;
-  background-color: #50c852;
+  background: linear-gradient(90deg, #50c852 100%, #717171 100%);
   border-radius: 15px;
 }
 
@@ -332,23 +333,25 @@ input{
 }
 
 .setting-box {
+  /* border-color: #313131;
+  border-style:double;
+  border-width: 2px; */
   position: fixed;
   right: 75%;
   /* width: 57.82575173477255vh;
   height: 38.55050115651503vh; */
   width: 325px;
   height: 340px;
-  background: none;
-  box-shadow: 0 0px 50px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
+  box-shadow: 0 0px 50px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 12.5px;
   /* transform: translateX(-325%); */
   justify-content: center;
   align-items: vertical;
   top: 21%;
   opacity: 0;
-  /* transition: all 0.3s ease-in; */
+  transition: all 0.3s ease-in;
   /* background-color: #353434; */
-  background: linear-gradient(to bottom, #333333, #212121);
+  background: linear-gradient(to bottom, #333333, #2a2a2a);
   /* background-color: #1b1b1b; */
 }
 
