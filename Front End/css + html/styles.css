@@ -268,7 +268,9 @@ input{
   margin-top: 4px;
   margin-bottom: 3px;
   width: 100px;
-  background-color: #50c852;
+  background: #717171; 
+  /* background: linear-gradient(90deg, #4dc84f 100%, #717171 0%); */
+  /* background-color: #50c852; */
   border-radius: 15px;
 }
 
@@ -334,17 +336,17 @@ input{
 .setting-box {
   position: fixed;
   right: 75%;
-  /* width: 57.82575173477255vh;
-  height: 38.55050115651503vh; */
+  top: 21%;
+  /* right: 87.5%; */
   width: 325px;
   height: 340px;
   background: none;
-  box-shadow: 0 0px 50px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 32px 0 rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   /* transform: translateX(-325%); */
   justify-content: center;
   align-items: vertical;
-  top: 21%;
+  
   opacity: 0;
   transition: all 0.3s ease-in;
   /* background-color: #353434; */
