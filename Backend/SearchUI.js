@@ -49,7 +49,7 @@ media_bias = {
   "Vanity Fair":[32.35,-14,45],
   "AlterNet":[25.76,-17.82],
   "BuzzFeed News":[32.25,-8],
-  "Google News":[50, 100]
+  "Google News":[40, 100]
 }
 
 // -------- Search Settings ------------
@@ -228,7 +228,10 @@ input.addEventListener("keyup", function(event) {
             'apiKey='+ api_key;
         fetch(link).then(res => res.json()).then(data => {
           data.articles.forEach(article => {
-            
+            // Title length limiter
+            if (article.title.length > 90) { 
+              return;
+            }
             // Search result limiter
             if (card_count == display_count) {
               return; 
@@ -242,9 +245,9 @@ input.addEventListener("keyup", function(event) {
            const date = newcard.querySelector(".data-date");
            const linkIcon = newcard.querySelector(".exit-icon");
            const reliability = newcard.getElementById("reliability-data");
-           const bias = newcard.getElementById("bias-data");
-           const reliabilityMeter = newcard.querySelector(".reliability-meter")
            const biasMeter = newcard.querySelector(".bias-meter")
+           const bias = newcard.getElementById("bias-data")
+           const reliabilityMeter = newcard.querySelector(".reliability-meter")
 
            // First entry of tuple is reliablity
            // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
@@ -254,24 +257,23 @@ input.addEventListener("keyup", function(event) {
             if (article.source.name in media_bias) { // If there's data on the article
               rel_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
               reliability.innerHTML = rel_rating
-              reliabilityMeter.style.background = 
-              "linear-gradient(90deg, #388bff " +  (rel_rating * 10) + "%, #717171 " +  (rel_rating * 10) + "%)";
-              
-              
-
+              var meterColor 
               if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
+                biasMeter.style.background = "#4dc84f"
                 bias.innerHTML = "Neutral"
-                
-              } else if (media_bias[article.source.name][1] > 5) {
+              } else if (media_bias[article.source.name][1] > 5) { // Republican
+                biasMeter.style.background = "#fa4545"
                 bias.innerHTML = "Republican"
-                // biasMeter.style.backgroundColor = "#c20017"
-                biasMeter.style.backgroundColor = "#fa4545"
-              } else if (media_bias[article.source.name][1] < -5) {
+              } else if (media_bias[article.source.name][1] < -5) { // Democrat
+                biasMeter.style.background = "#3448fd"
                 bias.innerHTML = "Democrat"
-                // biasMeter.style.backgroundColor = "#005ab5"
-                biasMeter.style.backgroundColor = "#3e2cff"
               }
-
+              meterColor = "#66a6ff"
+              reliabilityMeter.style.background = 
+              "linear-gradient(90deg, " + meterColor + " " +  (rel_rating * 10) + "%, #8f8f8f " +  (rel_rating * 10) + "%)";
+              
+            } else {
+              biasMeter.style.opacity = "0%"
             }
 
            title.textContent = article.title;

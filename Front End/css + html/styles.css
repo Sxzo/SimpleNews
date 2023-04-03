@@ -191,7 +191,7 @@ input{
   transform: translateY(450px); 
   padding: 15px;
   background-color: #e5e5e5;
-  height: 140px;
+  height: 150px;
   width: 700px;
   border-radius: 15px;
   overflow: hidden;
@@ -205,19 +205,16 @@ input{
   opacity: 100;
 }
 
-.card:hover  {
-  /* box-shadow: 0 0px 1px 0 #fff; */
-  height: 140px;
-}
 
 .exit-icon {
   /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25); */
   position: relative;
+  /* justify-self: center; */
   cursor: pointer;
   color: #388bff;
   font-size: 45px;
   left: 92%;
-  top: -18%;
+  top: 10%;
   font-weight: lighter;
 }
 
@@ -234,7 +231,7 @@ input{
   color: #363738;
   font-weight: bold;
   vertical-align: middle;
-  transform: translateY(-140px);
+  transform: translateY(-90px);
   margin-top: 4px;
   margin-bottom: 3px;
 }
@@ -245,7 +242,8 @@ input{
   position: absolute;
   display: flex;
   flex-direction: row;
-  transform: translateY(-145px); 
+  top: 75%;
+  /* transform: translateY(-120px);  */
   vertical-align: center;
   font-weight: bold;
   color: #5a636c;
@@ -256,25 +254,52 @@ input{
 }
 
 .reliability-meter {
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
   position: relative;
-  left: 87.5%;
-  top: -20%;
+  /* left: 87.5%;
+  top: 10%; */
   overflow: hidden;
-  font-size: 13px;
+  transform: translateY(2px);
+  font-size: 14px;
   color: white;
   vertical-align: middle;
-  margin-top: 4px;
-  margin-bottom: 3px;
   width: 100px;
-  background: #717171; 
+  height: 20px;
+  background: #7e7e7e; 
+  
   /* background: linear-gradient(90deg, #4dc84f 100%, #717171 0%); */
   /* background-color: #50c852; */
   border-radius: 15px;
 }
 
 .bias-meter {
+  /* font-weight: bold; */
+  text-align: center;
+  position: relative;
+  /* left: 87.5%;
+  top: 10%; */
+  overflow: hidden;
+  transform: translateY(2px);
+  font-size: 14px;
+  color: white;
+  /* vertical-align: middle; */
+  width: 100px;
+  height: 20px;
+  padding: 4.75px;
+  background: #7e7e7e; 
+  
+  /* background: linear-gradient(90deg, #4dc84f 100%, #717171 0%); */
+  /* background-color: #50c852; */
+  border-radius: 15px;
+}
+
+.bias-inner {
+  position: relative;
+  top: -50%;
+}
+
+/* .bias-meter {
   font-weight: bold;
   text-align: center;
   position: relative;
@@ -289,7 +314,7 @@ input{
   background-color: #717171;
   color: white;
   border-radius: 15px;
-}
+} */
 
 
 
