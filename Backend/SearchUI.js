@@ -49,7 +49,7 @@ media_bias = {
   "Vanity Fair":[32.35,-14,45],
   "AlterNet":[25.76,-17.82],
   "BuzzFeed News":[32.25,-8],
-  "Google News":[40, 100]
+  "Google News":[20, 100]
 }
 
 // -------- Search Settings ------------
@@ -257,23 +257,75 @@ input.addEventListener("keyup", function(event) {
             if (article.source.name in media_bias) { // If there's data on the article
               rel_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
               reliability.innerHTML = rel_rating
-              var meterColor 
+              var meterColor
+              
+              reliabilityMeter.addEventListener("mouseenter", (event) => {
+                reliability.style.opacity = 0;
+                setTimeout(function(){
+                  if ((media_bias[article.source.name][0] / 5).toFixed(1) > 6) {
+                    reliability.innerHTML = "Reliability"
+                  } else {
+                    reliability.innerHTML = "Unreliable"
+                  }
+                  
+                  reliability.style.opacity = 1;
+                  
+                }, 100)
+                
+              })
+
+              reliabilityMeter.addEventListener("mouseleave", (event) => {
+                reliability.style.opacity = 0;
+                setTimeout(function(){
+                  reliability.innerHTML = (media_bias[article.source.name][0] / 5).toFixed(1);
+                  reliability.style.opacity = 1;
+                }, 100)
+                
+              })
+
+              biasMeter.addEventListener("mouseenter", (event) => {
+                bias.style.opacity = 0;
+                biasMeter.addEventListener("mouseleave", (event) => {
+                  bias.style.opacity = 1;
+                  setTimeout(function(){
+                    biasMeter.style.borderRadius = "50%";
+                    biasMeter.style.width = "20px";
+                    // bias.innerHTML = ""
+                    bias.style.opacity = 0;
+                  }, 100)
+                })
+                setTimeout(function(){
+                  biasMeter.style.borderRadius = "15px";
+                  biasMeter.style.width = "100px";
+                  if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
+                    bias.innerHTML = "Neutral"
+                  } else if (media_bias[article.source.name][1] > 5) { // Republican
+                    bias.innerHTML = "Republican"
+                  } else if (media_bias[article.source.name][1] < -5) { // Democrat
+                    bias.innerHTML = "Democrat"
+                  }
+                  bias.style.opacity = 1;
+                }, 100)
+              })
+
+              
+
               if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
                 biasMeter.style.background = "#4dc84f"
-                bias.innerHTML = "Neutral"
+                // bias.innerHTML = "Neutral"
               } else if (media_bias[article.source.name][1] > 5) { // Republican
                 biasMeter.style.background = "#fa4545"
-                bias.innerHTML = "Republican"
+                // bias.innerHTML = "Republican"
               } else if (media_bias[article.source.name][1] < -5) { // Democrat
                 biasMeter.style.background = "#3448fd"
-                bias.innerHTML = "Democrat"
+                // bias.innerHTML = "Democrat"
               }
               meterColor = "#66a6ff"
               reliabilityMeter.style.background = 
               "linear-gradient(90deg, " + meterColor + " " +  (rel_rating * 10) + "%, #8f8f8f " +  (rel_rating * 10) + "%)";
               
             } else {
-              biasMeter.style.opacity = "0%"
+              biasMeter.style.display = "none"
             }
 
            title.textContent = article.title;

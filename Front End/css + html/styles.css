@@ -255,6 +255,7 @@ input{
 
 .reliability-meter {
   /* font-weight: bold; */
+  user-select: none;
   text-align: center;
   position: relative;
   /* left: 87.5%;
@@ -271,32 +272,48 @@ input{
   /* background: linear-gradient(90deg, #4dc84f 100%, #717171 0%); */
   /* background-color: #50c852; */
   border-radius: 15px;
+  transition: all 0.3s ease-in;
 }
 
-.bias-meter {
-  /* font-weight: bold; */
+.rel-data {
+  transition: all 0.3s ease-out;
+}
+
+/* .bias-meter {
   text-align: center;
   position: relative;
-  /* left: 87.5%;
-  top: 10%; */
   overflow: hidden;
   transform: translateY(2px);
   font-size: 14px;
   color: white;
-  /* vertical-align: middle; */
   width: 100px;
   height: 20px;
   padding: 4.75px;
   background: #7e7e7e; 
-  
-  /* background: linear-gradient(90deg, #4dc84f 100%, #717171 0%); */
-  /* background-color: #50c852; */
   border-radius: 15px;
+} */
+
+.bias-meter {
+  user-select: none;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(2px);
+  font-size: 14px;
+  color: white;
+  width: 20px;
+  height: 20px;
+  padding: 4.75px;
+  background: #7e7e7e; 
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.25);
 }
+
 
 .bias-inner {
   position: relative;
   top: -50%;
+  transition: all 0.3s;
 }
 
 /* .bias-meter {
