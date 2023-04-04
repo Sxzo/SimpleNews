@@ -36,7 +36,7 @@ media_bias = {
   "USA Today":[41.31,-4.95],
   "NPR":[43.33,-4.68],
   "Foreign Policy":[42.67,-2.56],
-  "Time Magazine":[41.67,-7.33],
+  "Time":[41.67,-7.33],
   "The New York Times":[42.47,-7.75],
   "The Guardian":[42.14,-8.46],
   "Vox":[40.27,-9.85],
@@ -49,8 +49,29 @@ media_bias = {
   "Vanity Fair":[32.35,-14,45],
   "AlterNet":[25.76,-17.82],
   "BuzzFeed News":[32.25,-8],
-  "Google News":[50, 100]
+  "Vice News":[38.79,-9.98], // START OF SOURCES PART 2
+  "Engadget":[44.41,-3.16],
+  "Gizmodo.com":[39.34,-9.29],
+  "Yahoo.com":[41.86,-6.09],
+  "Boing Boing":[39.13,-7.05],
+  "Wired":[36.62,-8.03],
+  "BBC News":[44.56,-3.78],
+  "The Economist":[43.97,-1.40],
+  "Ars Technica":[46.34,-2.73],
+  "CNET":[39.85,-1.77],
+  "Nature.com":[46.38,-1.27],
+  "The Atlantic":[38.34,-9.36],
+  "Deadspin":[33.46,-12.61],
+  "The Verge":[44.26,-6.09],
+  "Business Insider":[44, -5.1],
+  "Google News":[44, -5.1],
+  "Yahoo Entertainment":[41.86,-6.09],
+  
+
 }
+
+// Made up data for Business Insider, Google News ^^^
+
 
 // -------- Search Settings ------------
 
