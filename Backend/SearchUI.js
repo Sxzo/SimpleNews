@@ -202,162 +202,197 @@ function getDaySuffix(day) {
     }
 }
 
+
+
+function handleEmptySearch() {
+  clearCards();
+  noResultsFound.classList.add("open");
+}
+
+function clearCards() {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild); 
+  }
+}
+
+function createSearchLink(topic) {
+  link = 'https://newsapi.org/v2/everything?'+
+      'excludeDomains=lifehacker.com&' +
+      'language=' + language + '&' +
+      'from=' + date + '&' +
+      'q=' + topic + '&'+
+      'sortBy=relevancy&'+
+      'apiKey='+ api_key;
+  return link
+}
+
+function displayArticles(articles) {
+  // If no articles found: 
+  if (articles.length == 0) {
+      noResultsFound.classList.add("open");
+      input.focus();
+      input.select();
+      card_count = 0;
+      return;
+  }
+
+  articles.forEach(article_object => {
+
+    // If display limit is reached:
+    if (card_count == display_count) return; 
+
+    // TEMPORARY! Title length limiter: 
+
+    const newcard = cardTemplate.content.cloneNode(true);
+    const company = newcard.querySelector(".data-company"); 
+    const title = newcard.querySelector(".title");
+    const date = newcard.querySelector(".data-date");
+    const linkIcon = newcard.querySelector(".exit-icon");
+    const reliability = newcard.getElementById("reliability-data");
+    const biasMeter = newcard.querySelector(".bias-meter")
+    const bias = newcard.getElementById("bias-data")
+    const reliabilityMeter = newcard.querySelector(".reliability-meter")
+
+    
+    // First entry of tuple is reliablity
+    // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
+     // media_bias[article.source.name] === undefined
+
+     // Neutral, Left, Right, Conservative, Liberal
+     if (article_object.rated == true) { // If there's data on the article
+       reliability.innerHTML = article_object.reliability
+       var meterColor
+       
+       reliabilityMeter.addEventListener("mouseenter", (event) => {
+         reliability.style.opacity = 0;
+         setTimeout(function(){
+           if (article_object.reliability > 6) {
+             reliability.innerHTML = "Reliable"
+           } else {
+             reliability.innerHTML = "Unreliable"
+           }
+           reliability.style.opacity = 1;
+         }, 100)
+         
+       })
+
+       reliabilityMeter.addEventListener("mouseleave", (event) => {
+         reliability.style.opacity = 0;
+         setTimeout(function(){
+           reliability.innerHTML = article_object.reliability;
+           reliability.style.opacity = 1;
+         }, 100)
+         
+       })
+
+       biasMeter.addEventListener("mouseenter", (event) => {
+         bias.style.opacity = 0;
+         biasMeter.addEventListener("mouseleave", (event) => {
+           bias.style.opacity = 1;
+           setTimeout(function(){
+             biasMeter.style.borderRadius = "50%";
+             biasMeter.style.width = "20px";
+             // bias.innerHTML = ""
+             bias.style.opacity = 0;
+           }, 100)
+         })
+         setTimeout(function(){
+           biasMeter.style.borderRadius = "15px";
+           biasMeter.style.width = "100px";
+           if (article_object.bias >= -5 && article_object.bias <= 5) {
+             bias.innerHTML = "Neutral"
+           } else if (article_object.bias > 5) { // Republican
+             bias.innerHTML = "Republican"
+           } else if (article_object.bias < -5) { // Democrat
+             bias.innerHTML = "Democrat"
+           }
+           bias.style.opacity = 1;
+         }, 100)
+       })
+
+       
+
+       if (article_object.bias >= -5 && article_object.bias <= 5) {
+         biasMeter.style.background = "#4dc84f"
+       } else if (article_object.bias > 5) { // Republican
+         biasMeter.style.background = "#fa4545"
+       } else if (article_object.bias < -5) { // Democrat
+         biasMeter.style.background = "#3448fd"
+       }
+       meterColor = "#66a6ff"
+       reliabilityMeter.style.background = 
+       "linear-gradient(90deg, " + meterColor + " " +  (article_object.reliability * 10) + "%, #8f8f8f " +  (article_object.reliability * 10) + "%)";
+       
+     } else {
+       biasMeter.style.display = "none"
+     }
+
+    title.textContent = article_object.title;
+    date.textContent = formatDate(article_object.date);
+    company.textContent = article_object.company;
+
+    linkIcon.addEventListener('click', () => {
+      window.open(article_object.url);
+    });
+
+    container.append(newcard);
+    card_count++;
+  })
+}
+
+
 let articles = []
 
-input.addEventListener("keyup", function(event) { // Actual Search Process
+function search(input) {
+  var link = createSearchLink(input)
+
+   // Clear previous articles
+  articles = []    
+
+  fetch(link).then(res => res.json()).then(data => {
+    data.articles.forEach(article => {
+
+      // TEMPORARY! Title length limiter: 
+      if (article.title.length > 90) return;
+
+      if (article.source.name in media_bias) {
+        rated = true; 
+        reliability_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
+        bias_rating = media_bias[article.source.name][1]
+      } else {
+        rated = false; 
+        reliability_rating = 0;
+        bias_rating = 0;
+      }
+
+      let article_object = {
+        title: article.title,
+        company: article.source.name,
+        date: article.publishedAt.substring(0,10),
+        url: article.url,
+        reliability: reliability_rating,
+        bias: bias_rating,
+        rated: rated
+      }
+
+      articles.push(article_object)
+    })
+
+    curateArticles(articles)
+    displayArticles(articles)
+     
+  });
+}
+// Actual Search Process
+input.addEventListener("keyup", function(event) { 
     if (event.key === 'Enter') {
         if (input.value == "") {
-          while (container.firstChild) {
-            container.removeChild(container.firstChild); 
-          }
-          noResultsFound.classList.add("open");
+          handleEmptySearch();
           return;
+        } else {
+          clearCards();
+          noResultsFound.classList.remove("open");
+          search(input.value);
         }
-
-        while (container.firstChild) {
-          container.removeChild(container.firstChild); 
-        }
-        noResultsFound.classList.remove("open");
-        const topic = input.value
-        var link = 'https://newsapi.org/v2/everything?'+
-            'excludeDomains=lifehacker.com&' +
-            'language=' + language + '&' +
-            'from=' + date + '&' +
-            'q=' + topic + '&'+
-            'sortBy=relevancy&'+
-            'apiKey='+ api_key;
-        fetch(link).then(res => res.json()).then(data => {
-          data.articles.forEach(article => {
-            // Title length limiter
-            if (article.title.length > 90) { 
-              return;
-            }
-            // Search result limiter
-            if (card_count == display_count) {
-              return; 
-            }
-           
-            
-
-           const newcard = cardTemplate.content.cloneNode(true);
-           const company = newcard.querySelector(".data-company"); 
-           const title = newcard.querySelector(".title");
-           const date = newcard.querySelector(".data-date");
-           const linkIcon = newcard.querySelector(".exit-icon");
-           const reliability = newcard.getElementById("reliability-data");
-           const biasMeter = newcard.querySelector(".bias-meter")
-           const bias = newcard.getElementById("bias-data")
-           const reliabilityMeter = newcard.querySelector(".reliability-meter")
-
-           
-           // First entry of tuple is reliablity
-           // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
-            // media_bias[article.source.name] === undefined
-
-            // Neutral, Left, Right, Conservative, Liberal
-            if (article.source.name in media_bias) { // If there's data on the article
-              rel_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
-              reliability.innerHTML = rel_rating
-              var meterColor
-              
-              reliabilityMeter.addEventListener("mouseenter", (event) => {
-                reliability.style.opacity = 0;
-                setTimeout(function(){
-                  if ((media_bias[article.source.name][0] / 5).toFixed(1) > 6) {
-                    reliability.innerHTML = "Reliable"
-                  } else {
-                    reliability.innerHTML = "Unreliable"
-                  }
-                  
-                  reliability.style.opacity = 1;
-                  
-                }, 100)
-                
-              })
-
-              reliabilityMeter.addEventListener("mouseleave", (event) => {
-                reliability.style.opacity = 0;
-                setTimeout(function(){
-                  reliability.innerHTML = (media_bias[article.source.name][0] / 5).toFixed(1);
-                  reliability.style.opacity = 1;
-                }, 100)
-                
-              })
-
-              biasMeter.addEventListener("mouseenter", (event) => {
-                bias.style.opacity = 0;
-                biasMeter.addEventListener("mouseleave", (event) => {
-                  bias.style.opacity = 1;
-                  setTimeout(function(){
-                    biasMeter.style.borderRadius = "50%";
-                    biasMeter.style.width = "20px";
-                    // bias.innerHTML = ""
-                    bias.style.opacity = 0;
-                  }, 100)
-                })
-                setTimeout(function(){
-                  biasMeter.style.borderRadius = "15px";
-                  biasMeter.style.width = "100px";
-                  if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
-                    bias.innerHTML = "Neutral"
-                  } else if (media_bias[article.source.name][1] > 5) { // Republican
-                    bias.innerHTML = "Republican"
-                  } else if (media_bias[article.source.name][1] < -5) { // Democrat
-                    bias.innerHTML = "Democrat"
-                  }
-                  bias.style.opacity = 1;
-                }, 100)
-              })
-
-              
-
-              if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
-                biasMeter.style.background = "#4dc84f"
-                // bias.innerHTML = "Neutral"
-              } else if (media_bias[article.source.name][1] > 5) { // Republican
-                biasMeter.style.background = "#fa4545"
-                // bias.innerHTML = "Republican"
-              } else if (media_bias[article.source.name][1] < -5) { // Democrat
-                biasMeter.style.background = "#3448fd"
-                // bias.innerHTML = "Democrat"
-              }
-              meterColor = "#66a6ff"
-              reliabilityMeter.style.background = 
-              "linear-gradient(90deg, " + meterColor + " " +  (rel_rating * 10) + "%, #8f8f8f " +  (rel_rating * 10) + "%)";
-              
-            } else {
-              biasMeter.style.display = "none"
-            }
-
-           title.textContent = article.title;
-           date.textContent = formatDate(article.publishedAt.substring(0, 10));
-           company.textContent = article.source.name;
-
-           linkIcon.addEventListener('click', () => {
-             window.open(article.url);
-           });
-
-            container.append(newcard);
-
-            newcard.addEventListener("mouseover", (event)=>{
-              if (event.target === cardClone) {
-               console.log('Card clicked');
-             }
-            })
-
-            card_count++;
-
-          })
-          
-          if (card_count == 0) { // If no results found
-            noResultsFound.classList.add("open");
-            input.focus();
-            input.select()
-          }
-
-          card_count = 0;
-          
-           
-        });
     }
 })
