@@ -226,8 +226,82 @@ function createSearchLink(topic) {
   return link
 }
 
+function createBiasMeter(newcard, article_object) {
+  const biasMeter = newcard.querySelector(".bias-meter")
+  const bias = newcard.getElementById("bias-data")
+  biasMeter.addEventListener("mouseenter", (event) => {
+    bias.style.opacity = 0;
+    biasMeter.addEventListener("mouseleave", (event) => {
+      bias.style.opacity = 1;
+      setTimeout(function(){
+        biasMeter.style.borderRadius = "50%";
+        biasMeter.style.width = "20px";
+        // bias.innerHTML = ""
+        bias.style.opacity = 0;
+      }, 100)
+    })
+    setTimeout(function(){
+      biasMeter.style.borderRadius = "15px";
+      biasMeter.style.width = "100px";
+      if (article_object.bias >= -5 && article_object.bias <= 5) {
+        bias.innerHTML = "Neutral"
+      } else if (article_object.bias > 5) { // Republican
+        bias.innerHTML = "Republican"
+      } else if (article_object.bias < -5) { // Democrat
+        bias.innerHTML = "Democrat"
+      }
+      bias.style.opacity = 1;
+    }, 100)
+  })
+
+  if (article_object.bias >= -5 && article_object.bias <= 5) {
+    biasMeter.style.background = "#4dc84f"
+  } else if (article_object.bias > 5) { // Republican
+    biasMeter.style.background = "#fa4545"
+  } else if (article_object.bias < -5) { // Democrat
+    biasMeter.style.background = "#3448fd"
+  }
+}
+
+function createReliabilityMeter(newcard, article_object) {
+  const reliability = newcard.getElementById("reliability-data");
+  const reliabilityMeter = newcard.querySelector(".reliability-meter")
+  reliability.innerHTML = article_object.reliability
+  var meterColor
+   
+   reliabilityMeter.addEventListener("mouseenter", (event) => {
+     reliability.style.opacity = 0;
+     reliabilityMeter.addEventListener("mouseleave", (event) => {
+      reliability.style.opacity = 0;
+      setTimeout(function(){
+        reliability.innerHTML = article_object.reliability;
+        reliability.style.opacity = 1;
+      }, 100)
+      
+    })
+     setTimeout(function(){
+       if (article_object.reliability > 6) {
+         reliability.innerHTML = "Reliable"
+       } else {
+         reliability.innerHTML = "Unreliable"
+       }
+       reliability.style.opacity = 1;
+     }, 100)
+     
+   })
+
+  meterColor = "#66a6ff"
+  reliabilityMeter.style.background = 
+  "linear-gradient(90deg, " + meterColor + " " +  (article_object.reliability * 10) + "%, #8f8f8f " +  (article_object.reliability * 10) + "%)"; 
+}
+
+function curateArticles() {
+  // Do something...
+  return;
+}
+
 function displayArticles(articles) {
-  // If no articles found: 
+  // If no articles were found: 
   if (articles.length == 0) {
       noResultsFound.classList.add("open");
       input.focus();
@@ -236,104 +310,33 @@ function displayArticles(articles) {
       return;
   }
 
-  articles.forEach(article_object => {
 
+  articles.forEach(article_object => {
+    console.log(card_count)
     // If display limit is reached:
     if (card_count == display_count) return; 
-
-    // TEMPORARY! Title length limiter: 
 
     const newcard = cardTemplate.content.cloneNode(true);
     const company = newcard.querySelector(".data-company"); 
     const title = newcard.querySelector(".title");
     const date = newcard.querySelector(".data-date");
     const linkIcon = newcard.querySelector(".exit-icon");
-    const reliability = newcard.getElementById("reliability-data");
-    const biasMeter = newcard.querySelector(".bias-meter")
-    const bias = newcard.getElementById("bias-data")
-    const reliabilityMeter = newcard.querySelector(".reliability-meter")
-
-    
-    // First entry of tuple is reliablity
-    // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
-     // media_bias[article.source.name] === undefined
-
-     // Neutral, Left, Right, Conservative, Liberal
-     if (article_object.rated == true) { // If there's data on the article
-       reliability.innerHTML = article_object.reliability
-       var meterColor
-       
-       reliabilityMeter.addEventListener("mouseenter", (event) => {
-         reliability.style.opacity = 0;
-         setTimeout(function(){
-           if (article_object.reliability > 6) {
-             reliability.innerHTML = "Reliable"
-           } else {
-             reliability.innerHTML = "Unreliable"
-           }
-           reliability.style.opacity = 1;
-         }, 100)
-         
-       })
-
-       reliabilityMeter.addEventListener("mouseleave", (event) => {
-         reliability.style.opacity = 0;
-         setTimeout(function(){
-           reliability.innerHTML = article_object.reliability;
-           reliability.style.opacity = 1;
-         }, 100)
-         
-       })
-
-       biasMeter.addEventListener("mouseenter", (event) => {
-         bias.style.opacity = 0;
-         biasMeter.addEventListener("mouseleave", (event) => {
-           bias.style.opacity = 1;
-           setTimeout(function(){
-             biasMeter.style.borderRadius = "50%";
-             biasMeter.style.width = "20px";
-             // bias.innerHTML = ""
-             bias.style.opacity = 0;
-           }, 100)
-         })
-         setTimeout(function(){
-           biasMeter.style.borderRadius = "15px";
-           biasMeter.style.width = "100px";
-           if (article_object.bias >= -5 && article_object.bias <= 5) {
-             bias.innerHTML = "Neutral"
-           } else if (article_object.bias > 5) { // Republican
-             bias.innerHTML = "Republican"
-           } else if (article_object.bias < -5) { // Democrat
-             bias.innerHTML = "Democrat"
-           }
-           bias.style.opacity = 1;
-         }, 100)
-       })
-
-       
-
-       if (article_object.bias >= -5 && article_object.bias <= 5) {
-         biasMeter.style.background = "#4dc84f"
-       } else if (article_object.bias > 5) { // Republican
-         biasMeter.style.background = "#fa4545"
-       } else if (article_object.bias < -5) { // Democrat
-         biasMeter.style.background = "#3448fd"
-       }
-       meterColor = "#66a6ff"
-       reliabilityMeter.style.background = 
-       "linear-gradient(90deg, " + meterColor + " " +  (article_object.reliability * 10) + "%, #8f8f8f " +  (article_object.reliability * 10) + "%)";
-       
-     } else {
-       biasMeter.style.display = "none"
-     }
 
     title.textContent = article_object.title;
     date.textContent = formatDate(article_object.date);
     company.textContent = article_object.company;
-
     linkIcon.addEventListener('click', () => {
       window.open(article_object.url);
     });
+
+    // If there's data on the article:
+    if (article_object.rated == true) { 
+      createReliabilityMeter(newcard, article_object); 
+      createBiasMeter(newcard, article_object);
+    } else {
+      const biasMeter = newcard.querySelector(".bias-meter")
+      biasMeter.style.display = "none"
+    }
 
     container.append(newcard);
     card_count++;
@@ -347,7 +350,8 @@ function search(input) {
   var link = createSearchLink(input)
 
    // Clear previous articles
-  articles = []    
+  articles = []
+  card_count = 0;    
 
   fetch(link).then(res => res.json()).then(data => {
     data.articles.forEach(article => {
@@ -378,8 +382,8 @@ function search(input) {
       articles.push(article_object)
     })
 
-    curateArticles(articles)
-    displayArticles(articles)
+    curateArticles(articles);
+    displayArticles(articles);
      
   });
 }
