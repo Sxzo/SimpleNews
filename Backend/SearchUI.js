@@ -204,7 +204,7 @@ function getDaySuffix(day) {
 
 let articles = []
 
-input.addEventListener("keyup", function(event) {
+input.addEventListener("keyup", function(event) { // Actual Search Process
     if (event.key === 'Enter') {
         if (input.value == "") {
           while (container.firstChild) {
@@ -249,6 +249,7 @@ input.addEventListener("keyup", function(event) {
            const bias = newcard.getElementById("bias-data")
            const reliabilityMeter = newcard.querySelector(".reliability-meter")
 
+           
            // First entry of tuple is reliablity
            // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
             // media_bias[article.source.name] === undefined
@@ -263,7 +264,7 @@ input.addEventListener("keyup", function(event) {
                 reliability.style.opacity = 0;
                 setTimeout(function(){
                   if ((media_bias[article.source.name][0] / 5).toFixed(1) > 6) {
-                    reliability.innerHTML = "Reliability"
+                    reliability.innerHTML = "Reliable"
                   } else {
                     reliability.innerHTML = "Unreliable"
                   }
@@ -337,6 +338,12 @@ input.addEventListener("keyup", function(event) {
            });
 
             container.append(newcard);
+
+            newcard.addEventListener("mouseover", (event)=>{
+              if (event.target === cardClone) {
+               console.log('Card clicked');
+             }
+            })
 
             card_count++;
 
