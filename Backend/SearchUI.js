@@ -243,6 +243,8 @@ input.addEventListener("keyup", function(event) {
             const bias = newcard.getElementById("bias-data");
             const reliabilityMeter = newcard.querySelector(".reliability-meter")
             const biasMeter = newcard.querySelector(".bias-meter")
+            const card = newcard.querySelector(".card");
+            const subheader = newcard.querySelector(".cardSubheader");
  
             // First entry of tuple is reliablity
             // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
@@ -273,12 +275,30 @@ input.addEventListener("keyup", function(event) {
              }
 
            title.textContent = article.title;
+           titleLength = article.title.length;
            date.textContent = formatDate(article.publishedAt.substring(0, 10));
            company.textContent = article.source.name;
 
            linkIcon.addEventListener('click', () => {
              window.open(article.url);
            });
+           // Account for different title lengths
+           if (titleLength >= 94) {
+            card.style.height = 165 + "px";
+            title.style.transform = "translateY(-130px)";
+            subheader.style.transform = "translateY(-120px)";
+            reliabilityMeter.style.transform = "translateY(23px)";
+            biasMeter.style.transform = "translateY(23px)";
+           }
+           if (titleLength >= 135) {
+             card.style.height = 190 + "px";
+             title.style.height = 120 + "px";
+             title.style.transform = "translateY(-125px)";
+             subheader.style.transform = "translateY(-110px)";
+             reliabilityMeter.style.transform = "translateY(60px)";
+             biasMeter.style.transform = "translateY(60px)";
+           }
+
 
             container.append(newcard);
 
