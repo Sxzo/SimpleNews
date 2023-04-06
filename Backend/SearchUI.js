@@ -1,4 +1,59 @@
+// File to declare the media bias dictionary
+// Source: https://adfontesmedia.com/interactive-media-bias-chart/
+
+
+// Dictionay of companies that maps to a tuple
+// First entry of tuple is reliablity
+// Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
+
+media_bias = {
+  "ABC News":[46.70,-4.41],
+  "CBS News":[44.28,-3.22],
+  "CNBC":[45.15,-2.37],
+  "NBC News":[45.26,-6.67],
+  "PBS":[47.92,-4.92],
+  "NewsNation":[44.78,0.23],
+  "The Hill":[43.36,-1.21],
+  "Insider":[42.50,-5.29],
+  "CNN":[42.43,-7.47],
+  "Forbes":[41.15,-3.72],
+  "Reuters":[47.40,-1.37],
+  "Wall Street Journal":[44.36,5.49],
+  "Fox News":[36.91,12.07],
+  "World News Group":[41.23,7.37],
+  "New York Post":[34.28,10.08],
+  "Daily Mail":[34.12,2.90],
+  "Newsweek":[36.02,-4.35],
+  "Washington Examiner":[33.12,13.18],
+  "Daily Wire":[33.14,13.79],
+  "Newsmax":[30.46,15.37],
+  "The Blaze":[28.21,18.02],
+  "The Federalist":[23.55,20.43],
+  "Bill O'Reilly":[21.72,25.55],
+  "InfoWars":[13.62,27.15],
+  "American Libery Report":[10.81,29.13],
+  "Natural News":[8.25,30.20],
+  "USA Today":[41.31,-4.95],
+  "NPR":[43.33,-4.68],
+  "Foreign Policy":[42.67,-2.56],
+  "Time Magazine":[41.67,-7.33],
+  "The New York Times":[42.47,-7.75],
+  "The Guardian":[42.14,-8.46],
+  "Vox":[40.27,-9.85],
+  "HuffPost":[39.23,-11.20],
+  "Washington Post":[38.42,-8.80],
+  "Rolling Stone":[39.67,-7.33],
+  "Daily Beast":[35.66,-12.75],
+  "The New Yorker":[40.39,-12,42],
+  "MSNBC":[35.14,-14.15],
+  "Vanity Fair":[32.35,-14,45],
+  "AlterNet":[25.76,-17.82],
+  "BuzzFeed News":[32.25,-8],
+  "Google News":[50, 100]
+}
+
 // -------- Search Settings ------------
+
 
 // ----Display Settings:
 
@@ -114,6 +169,8 @@ function decreaseWeeks() {
 
 // -------- Search Function & Filter ------------
 
+
+
 input = document.querySelector(".type-input");
 var api_key = "2729f7e2011b43d7be77e7b60bc97701";
 
@@ -182,43 +239,46 @@ input.addEventListener("keyup", function(event) {
             const title = newcard.querySelector(".title");
             const date = newcard.querySelector(".data-date");
             const linkIcon = newcard.querySelector(".exit-icon");
-            const card = newcard.querySelector(".card");
-            const subheader = newcard.querySelector(".cardSubheader");
-            const reliabilitymeter = newcard.querySelector(".reliability-meter");
-            const biasmeter = newcard.querySelector(".bias-meter");
+            const reliability = newcard.getElementById("reliability-data");
+            const bias = newcard.getElementById("bias-data");
+            const reliabilityMeter = newcard.querySelector(".reliability-meter")
+            const biasMeter = newcard.querySelector(".bias-meter")
  
-            title.textContent = article.title;
-            date.textContent = formatDate(article.publishedAt.substring(0, 10));
-            company.textContent = article.source.name;
+            // First entry of tuple is reliablity
+            // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
+             // media_bias[article.source.name] === undefined
  
-            linkIcon.addEventListener('click', () => {
-              window.open(article.url);
-            });
+             // Neutral, Left, Right, Conservative, Liberal
+             if (article.source.name in media_bias) { // If there's data on the article
+               rel_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
+               reliability.innerHTML = rel_rating
+               reliabilityMeter.style.background = 
+               "linear-gradient(90deg, #388bff " +  (rel_rating * 10) + "%, #717171 " +  (rel_rating * 10) + "%)";
+               
+               
  
-            titleLength = article.title.length;
+               if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
+                 bias.innerHTML = "Neutral"
+                 
+               } else if (media_bias[article.source.name][1] > 5) {
+                 bias.innerHTML = "Republican"
+                 // biasMeter.style.backgroundColor = "#c20017"
+                 biasMeter.style.backgroundColor = "#fa4545"
+               } else if (media_bias[article.source.name][1] < -5) {
+                 bias.innerHTML = "Democrat"
+                 // biasMeter.style.backgroundColor = "#005ab5"
+                 biasMeter.style.backgroundColor = "#3e2cff"
+               }
  
-            if (titleLength >= 94) {
-             card.style.height = 165 + "px";
-             title.style.transform = "translateY(-130px)";
-             subheader.style.transform = "translateY(-120px)";
-             reliabilitymeter.style.transform = "translateY(23px)";
-             biasmeter.style.transform = "translateY(23px)";
-             // card.addEventListener('mouseover', () => {
-             //   card.style.height = 155 + "px";
-             // });
-             
-             // card.addEventListener('mouseout', () => {
-             //   card.style.height = 120 + "px";
-             // });
-            }
-            if (titleLength >= 135) {
-              card.style.height = 190 + "px";
-              title.style.height = 120 + "px";
-              title.style.transform = "translateY(-125px)";
-              subheader.style.transform = "translateY(-110px)";
-              reliabilitymeter.style.transform = "translateY(60px)";
-              biasmeter.style.transform = "translateY(60px)";
-            }
+             }
+
+           title.textContent = article.title;
+           date.textContent = formatDate(article.publishedAt.substring(0, 10));
+           company.textContent = article.source.name;
+
+           linkIcon.addEventListener('click', () => {
+             window.open(article.url);
+           });
 
             container.append(newcard);
 
