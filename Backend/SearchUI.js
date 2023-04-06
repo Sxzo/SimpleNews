@@ -184,6 +184,8 @@ input.addEventListener("keyup", function(event) {
             const linkIcon = newcard.querySelector(".exit-icon");
             const card = newcard.querySelector(".card");
             const subheader = newcard.querySelector(".cardSubheader");
+            const reliabilitymeter = newcard.querySelector(".reliability-meter");
+            const biasmeter = newcard.querySelector(".bias-meter");
  
             title.textContent = article.title;
             date.textContent = formatDate(article.publishedAt.substring(0, 10));
@@ -195,10 +197,12 @@ input.addEventListener("keyup", function(event) {
  
             titleLength = article.title.length;
  
-            if (titleLength >= 100) {
+            if (titleLength >= 94) {
              card.style.height = 165 + "px";
              title.style.transform = "translateY(-130px)";
              subheader.style.transform = "translateY(-120px)";
+             reliabilitymeter.style.transform = "translateY(23px)";
+             biasmeter.style.transform = "translateY(23px)";
              // card.addEventListener('mouseover', () => {
              //   card.style.height = 155 + "px";
              // });
@@ -206,6 +210,14 @@ input.addEventListener("keyup", function(event) {
              // card.addEventListener('mouseout', () => {
              //   card.style.height = 120 + "px";
              // });
+            }
+            if (titleLength >= 135) {
+              card.style.height = 190 + "px";
+              title.style.height = 120 + "px";
+              title.style.transform = "translateY(-125px)";
+              subheader.style.transform = "translateY(-110px)";
+              reliabilitymeter.style.transform = "translateY(60px)";
+              biasmeter.style.transform = "translateY(60px)";
             }
 
             container.append(newcard);
