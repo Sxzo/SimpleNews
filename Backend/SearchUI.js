@@ -36,7 +36,7 @@ media_bias = {
   "USA Today":[41.31,-4.95],
   "NPR":[43.33,-4.68],
   "Foreign Policy":[42.67,-2.56],
-  "Time Magazine":[41.67,-7.33],
+  "Time":[41.67,-7.33],
   "The New York Times":[42.47,-7.75],
   "The Guardian":[42.14,-8.46],
   "Vox":[40.27,-9.85],
@@ -49,7 +49,23 @@ media_bias = {
   "Vanity Fair":[32.35,-14,45],
   "AlterNet":[25.76,-17.82],
   "BuzzFeed News":[32.25,-8],
-  "Google News":[20, 100]
+  "Vice News":[38.79,-9.98], // START OF SOURCES PART 2
+  "Engadget":[44.41,-3.16],
+  "Gizmodo.com":[39.34,-9.29],
+  "Yahoo.com":[41.86,-6.09],
+  "Boing Boing":[39.13,-7.05],
+  "Wired":[36.62,-8.03],
+  "BBC News":[44.56,-3.78],
+  "The Economist":[43.97,-1.40],
+  "Ars Technica":[46.34,-2.73],
+  "CNET":[39.85,-1.77],
+  "Nature.com":[46.38,-1.27],
+  "The Atlantic":[38.34,-9.36],
+  "Deadspin":[33.46,-12.61],
+  "The Verge":[44.26,-6.09],
+  "Business Insider":[44, -5.1],
+  "Google News":[44, -5.1],
+  "Yahoo Entertainment":[41.86,-6.09],
 }
 
 // -------- Search Settings ------------
@@ -244,11 +260,12 @@ function createBiasMeter(newcard, article_object) {
       biasMeter.style.borderRadius = "15px";
       biasMeter.style.width = "100px";
       if (article_object.bias >= -5 && article_object.bias <= 5) {
-        bias.innerHTML = "Neutral"
+        bias.innerHTML = "Unbiased"
       } else if (article_object.bias > 5) { // Republican
-        bias.innerHTML = "Republican"
+        bias.innerHTML = "Conservative"
+        biasMeter.style.width = "110px";
       } else if (article_object.bias < -5) { // Democrat
-        bias.innerHTML = "Democrat"
+        bias.innerHTML = "Liberal"
       }
       bias.style.opacity = 1;
     }, 100)
@@ -279,6 +296,7 @@ function createReliabilityMeter(newcard, article_object) {
       }, 100)
       
     })
+    
      setTimeout(function(){
        if (article_object.reliability > 6) {
          reliability.innerHTML = "Reliable"
@@ -295,9 +313,25 @@ function createReliabilityMeter(newcard, article_object) {
   "linear-gradient(90deg, " + meterColor + " " +  (article_object.reliability * 10) + "%, #8f8f8f " +  (article_object.reliability * 10) + "%)"; 
 }
 
-function curateArticles() {
+function handleDuplicates(articles) {
+  company_list = []
+  new_articles = []
+  articles.forEach(article_object => {
+    if (company_list.includes(article_object.company)) {
+      console.log("Includes " + article_object.company);
+    } else {
+      new_articles.push(article_object);
+      company_list.push(article_object.company);
+    }
+  })
+  return new_articles;
+}
+
+
+function curateArticles(articles) {
   // Do something...
-  return;
+  articles = handleDuplicates(articles);
+  return articles;
 }
 
 function displayArticles(articles) {
@@ -382,8 +416,8 @@ function search(input) {
       articles.push(article_object)
     })
 
-    curateArticles(articles);
-    displayArticles(articles);
+    new_articles = curateArticles(articles);
+    displayArticles(new_articles);
      
   });
 }
