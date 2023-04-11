@@ -317,7 +317,7 @@ function handleDuplicates(articles) {
   company_list = []
   new_articles = []
   articles.forEach(article_object => {
-    if (company_list.includes(article_object.company)) {
+    if (company_list.includes(article_object.company) || article_object.title.length > 90) {
       console.log("Includes " + article_object.company);
     } else {
       new_articles.push(article_object);
@@ -327,10 +327,20 @@ function handleDuplicates(articles) {
   return new_articles;
 }
 
+function reliabilityCompare(a, b) {
+  // Sorts from most to least reliable
+  if (a.reliability > b.reliability) return -1;
+  if (a.reliability < b.reliability) return 1;
+  return 0;
+}
+
+
 
 function curateArticles(articles) {
   // Do something...
   articles = handleDuplicates(articles);
+  // articles.sort(reliabilityCompare)
+  // Sort idea would be to make a point system where each day back is -1 point from 10 and reliability score is 1-10
   return articles;
 }
 
@@ -358,7 +368,11 @@ function displayArticles(articles) {
 
     title.textContent = article_object.title;
     date.textContent = formatDate(article_object.date);
-    company.textContent = article_object.company;
+    if (article_object.company == "Yahoo Entertainment") {
+      company.textContent = "Yahoo";
+    } else {
+      company.textContent = article_object.company;
+    }
     linkIcon.addEventListener('click', () => {
       window.open(article_object.url);
     });
@@ -389,9 +403,7 @@ function search(input) {
 
   fetch(link).then(res => res.json()).then(data => {
     data.articles.forEach(article => {
-
-      // TEMPORARY! Title length limiter: 
-      if (article.title.length > 90) return;
+      
 
       if (article.source.name in media_bias) {
         rated = true; 
