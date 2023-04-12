@@ -36,7 +36,7 @@ media_bias = {
   "USA Today":[41.31,-4.95],
   "NPR":[43.33,-4.68],
   "Foreign Policy":[42.67,-2.56],
-  "Time Magazine":[41.67,-7.33],
+  "Time":[41.67,-7.33],
   "The New York Times":[42.47,-7.75],
   "The Guardian":[42.14,-8.46],
   "Vox":[40.27,-9.85],
@@ -49,7 +49,23 @@ media_bias = {
   "Vanity Fair":[32.35,-14,45],
   "AlterNet":[25.76,-17.82],
   "BuzzFeed News":[32.25,-8],
-  "Google News":[50, 100]
+  "Vice News":[38.79,-9.98], // START OF SOURCES PART 2
+  "Engadget":[44.41,-3.16],
+  "Gizmodo.com":[39.34,-9.29],
+  "Yahoo.com":[41.86,-6.09],
+  "Boing Boing":[39.13,-7.05],
+  "Wired":[36.62,-8.03],
+  "BBC News":[44.56,-3.78],
+  "The Economist":[43.97,-1.40],
+  "Ars Technica":[46.34,-2.73],
+  "CNET":[39.85,-1.77],
+  "Nature.com":[46.38,-1.27],
+  "The Atlantic":[38.34,-9.36],
+  "Deadspin":[33.46,-12.61],
+  "The Verge":[44.26,-6.09],
+  "Business Insider":[44, -5.1],
+  "Google News":[44, -5.1],
+  "Yahoo Entertainment":[41.86,-6.09],
 }
 
 // -------- Search Settings ------------
@@ -202,101 +218,231 @@ function getDaySuffix(day) {
     }
 }
 
+
+
+function handleEmptySearch() {
+  clearCards();
+  noResultsFound.classList.add("open");
+}
+
+function clearCards() {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild); 
+  }
+}
+
+function createSearchLink(topic) {
+  link = 'https://newsapi.org/v2/everything?'+
+      'excludeDomains=lifehacker.com&' +
+      'language=' + language + '&' +
+      'from=' + date + '&' +
+      'q=' + topic + '&'+
+      'sortBy=relevancy&'+
+      'apiKey='+ api_key;
+  return link
+}
+
+function createBiasMeter(newcard, article_object) {
+  const biasMeter = newcard.querySelector(".bias-meter")
+  const bias = newcard.getElementById("bias-data")
+  biasMeter.addEventListener("mouseenter", (event) => {
+    bias.style.opacity = 0;
+    biasMeter.addEventListener("mouseleave", (event) => {
+      bias.style.opacity = 1;
+      setTimeout(function(){
+        biasMeter.style.borderRadius = "50%";
+        biasMeter.style.width = "20px";
+        // bias.innerHTML = ""
+        bias.style.opacity = 0;
+      }, 100)
+    })
+    setTimeout(function(){
+      biasMeter.style.borderRadius = "15px";
+      biasMeter.style.width = "100px";
+      if (article_object.bias >= -5 && article_object.bias <= 5) {
+        bias.innerHTML = "Unbiased"
+      } else if (article_object.bias > 5) { // Republican
+        bias.innerHTML = "Conservative"
+        biasMeter.style.width = "110px";
+      } else if (article_object.bias < -5) { // Democrat
+        bias.innerHTML = "Liberal"
+      }
+      bias.style.opacity = 1;
+    }, 100)
+  })
+
+  if (article_object.bias >= -5 && article_object.bias <= 5) {
+    biasMeter.style.background = "#4dc84f"
+  } else if (article_object.bias > 5) { // Republican
+    biasMeter.style.background = "#fa4545"
+  } else if (article_object.bias < -5) { // Democrat
+    biasMeter.style.background = "#3448fd"
+  }
+}
+
+function createReliabilityMeter(newcard, article_object) {
+  const reliability = newcard.getElementById("reliability-data");
+  const reliabilityMeter = newcard.querySelector(".reliability-meter")
+  reliability.innerHTML = article_object.reliability
+  var meterColor
+   
+   reliabilityMeter.addEventListener("mouseenter", (event) => {
+     reliability.style.opacity = 0;
+     reliabilityMeter.addEventListener("mouseleave", (event) => {
+      reliability.style.opacity = 0;
+      setTimeout(function(){
+        reliability.innerHTML = article_object.reliability;
+        reliability.style.opacity = 1;
+      }, 100)
+      
+    })
+    
+     setTimeout(function(){
+       if (article_object.reliability > 6) {
+         reliability.innerHTML = "Reliable"
+       } else {
+         reliability.innerHTML = "Unreliable"
+       }
+       reliability.style.opacity = 1;
+     }, 100)
+     
+   })
+
+  meterColor = "#66a6ff"
+  reliabilityMeter.style.background = 
+  "linear-gradient(90deg, " + meterColor + " " +  (article_object.reliability * 10) + "%, #8f8f8f " +  (article_object.reliability * 10) + "%)"; 
+}
+
+function handleDuplicates(articles) {
+  company_list = []
+  new_articles = []
+  articles.forEach(article_object => {
+    if (company_list.includes(article_object.company) || article_object.title.length > 90) {
+      console.log("Includes " + article_object.company);
+    } else {
+      new_articles.push(article_object);
+      company_list.push(article_object.company);
+    }
+  })
+  return new_articles;
+}
+
+function reliabilityCompare(a, b) {
+  // Sorts from most to least reliable
+  if (a.reliability > b.reliability) return -1;
+  if (a.reliability < b.reliability) return 1;
+  return 0;
+}
+
+
+
+function curateArticles(articles) {
+  // Do something...
+  articles = handleDuplicates(articles);
+  // articles.sort(reliabilityCompare)
+  // Sort idea would be to make a point system where each day back is -1 point from 10 and reliability score is 1-10
+  return articles;
+}
+
+function displayArticles(articles) {
+  // If no articles were found: 
+  if (articles.length == 0) {
+      noResultsFound.classList.add("open");
+      input.focus();
+      input.select();
+      card_count = 0;
+      return;
+  }
+
+
+  articles.forEach(article_object => {
+    console.log(card_count)
+    // If display limit is reached:
+    if (card_count == display_count) return; 
+
+    const newcard = cardTemplate.content.cloneNode(true);
+    const company = newcard.querySelector(".data-company"); 
+    const title = newcard.querySelector(".title");
+    const date = newcard.querySelector(".data-date");
+    const linkIcon = newcard.querySelector(".exit-icon");
+
+    title.textContent = article_object.title;
+    date.textContent = formatDate(article_object.date);
+    if (article_object.company == "Yahoo Entertainment") {
+      company.textContent = "Yahoo";
+    } else {
+      company.textContent = article_object.company;
+    }
+    linkIcon.addEventListener('click', () => {
+      window.open(article_object.url);
+    });
+
+    // If there's data on the article:
+    if (article_object.rated == true) { 
+      createReliabilityMeter(newcard, article_object); 
+      createBiasMeter(newcard, article_object);
+    } else {
+      const biasMeter = newcard.querySelector(".bias-meter")
+      biasMeter.style.display = "none"
+    }
+
+    container.append(newcard);
+    card_count++;
+  })
+}
+
+
 let articles = []
 
-input.addEventListener("keyup", function(event) {
+function search(input) {
+  var link = createSearchLink(input)
+
+   // Clear previous articles
+  articles = []
+  card_count = 0;    
+
+  fetch(link).then(res => res.json()).then(data => {
+    data.articles.forEach(article => {
+      
+
+      if (article.source.name in media_bias) {
+        rated = true; 
+        reliability_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
+        bias_rating = media_bias[article.source.name][1]
+      } else {
+        rated = false; 
+        reliability_rating = 0;
+        bias_rating = 0;
+      }
+
+      let article_object = {
+        title: article.title,
+        company: article.source.name,
+        date: article.publishedAt.substring(0,10),
+        url: article.url,
+        reliability: reliability_rating,
+        bias: bias_rating,
+        rated: rated
+      }
+
+      articles.push(article_object)
+    })
+
+    new_articles = curateArticles(articles);
+    displayArticles(new_articles);
+     
+  });
+}
+// Actual Search Process
+input.addEventListener("keyup", function(event) { 
     if (event.key === 'Enter') {
         if (input.value == "") {
-          while (container.firstChild) {
-            container.removeChild(container.firstChild); 
-          }
-          noResultsFound.classList.add("open");
+          handleEmptySearch();
           return;
+        } else {
+          clearCards();
+          noResultsFound.classList.remove("open");
+          search(input.value);
         }
-
-        while (container.firstChild) {
-          container.removeChild(container.firstChild); 
-        }
-        noResultsFound.classList.remove("open");
-        const topic = input.value
-        var link = 'https://newsapi.org/v2/everything?'+
-            'excludeDomains=lifehacker.com&' +
-            'language=' + language + '&' +
-            'from=' + date + '&' +
-            'q=' + topic + '&'+
-            'sortBy=relevancy&'+
-            'apiKey='+ api_key;
-        fetch(link).then(res => res.json()).then(data => {
-          data.articles.forEach(article => {
-            
-            // Search result limiter
-            if (card_count == display_count) {
-              return; 
-            }
-           
-            
-
-           const newcard = cardTemplate.content.cloneNode(true);
-           const company = newcard.querySelector(".data-company"); 
-           const title = newcard.querySelector(".title");
-           const date = newcard.querySelector(".data-date");
-           const linkIcon = newcard.querySelector(".exit-icon");
-           const reliability = newcard.getElementById("reliability-data");
-           const bias = newcard.getElementById("bias-data");
-           const reliabilityMeter = newcard.querySelector(".reliability-meter")
-           const biasMeter = newcard.querySelector(".bias-meter")
-
-           // First entry of tuple is reliablity
-           // Second entry of tuple is bias. Negative bias is left-leaning, Positive is right-leaning
-            // media_bias[article.source.name] === undefined
-
-            // Neutral, Left, Right, Conservative, Liberal
-            if (article.source.name in media_bias) { // If there's data on the article
-              rel_rating = (media_bias[article.source.name][0] / 5).toFixed(1)
-              reliability.innerHTML = rel_rating
-              reliabilityMeter.style.background = 
-              "linear-gradient(90deg, #388bff " +  (rel_rating * 10) + "%, #717171 " +  (rel_rating * 10) + "%)";
-              
-              
-
-              if (media_bias[article.source.name][1] >= -5 && media_bias[article.source.name][1] <= 5) {
-                bias.innerHTML = "Neutral"
-                
-              } else if (media_bias[article.source.name][1] > 5) {
-                bias.innerHTML = "Republican"
-                // biasMeter.style.backgroundColor = "#c20017"
-                biasMeter.style.backgroundColor = "#fa4545"
-              } else if (media_bias[article.source.name][1] < -5) {
-                bias.innerHTML = "Democrat"
-                // biasMeter.style.backgroundColor = "#005ab5"
-                biasMeter.style.backgroundColor = "#3e2cff"
-              }
-
-            }
-
-           title.textContent = article.title;
-           date.textContent = formatDate(article.publishedAt.substring(0, 10));
-           company.textContent = article.source.name;
-
-           linkIcon.addEventListener('click', () => {
-             window.open(article.url);
-           });
-
-            container.append(newcard);
-
-            card_count++;
-
-          })
-          
-          if (card_count == 0) { // If no results found
-            noResultsFound.classList.add("open");
-            input.focus();
-            input.select()
-          }
-
-          card_count = 0;
-          
-           
-        });
     }
 })
