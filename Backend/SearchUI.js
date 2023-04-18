@@ -78,7 +78,7 @@ displayAdd = document.querySelector(".plus-display-button");
 displaySubtract = document.querySelector(".minus-display-button");
 displayCounter = document.querySelector(".display-counter");
 
-var display_count = 5; 
+var display_count = 10; 
 var card_count = 0;
 var display_count_max = 50;
 
