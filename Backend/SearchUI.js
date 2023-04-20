@@ -318,7 +318,6 @@ function handleDuplicates(articles) {
   new_articles = []
   articles.forEach(article_object => {
     if (company_list.includes(article_object.company) || article_object.title.length > 90) {
-      console.log("Includes " + article_object.company);
     } else {
       new_articles.push(article_object);
       company_list.push(article_object.company);
@@ -327,20 +326,59 @@ function handleDuplicates(articles) {
   return new_articles;
 }
 
-function reliabilityCompare(a, b) {
+function reliabilitySort(a, b) {
   // Sorts from most to least reliable
   if (a.reliability > b.reliability) return -1;
   if (a.reliability < b.reliability) return 1;
   return 0;
 }
 
+function dateSort(a, b) {
+  split_date_a = a.date.split('-')
+  split_date_b = b.date.split('-')
+  a_date = new Date(split_date_a[0], split_date_a[1], split_date_a[2])
+  b_date = new Date(split_date_b[0], split_date_b[1], split_date_b[2])
 
+  current_date = new Date()
+
+  a_dist = current_date - a_date
+  b_dist = current_date - b_date
+
+  if (a_dist > b_dist)  return 1;
+  if (a_dist < b_dist) return -1;
+  return 0; 
+}
+
+// Date Based Sort
+function dateBasedReliabilitySort(articles) {
+  new_articles = []
+  date_list = []
+
+  articles.forEach(article => {
+    if (date_list.includes(article.date) == false) {
+      date_list.push(article.date)
+    }
+  }) 
+
+  date_list.forEach(date => {
+    temp_list = []
+    articles.forEach(article => {
+      if (article.date == date) {
+        temp_list.push(article)
+      }
+    })
+    temp_list.sort(reliabilitySort)
+    temp_list.forEach(article => {
+      new_articles.push(article)
+    })
+  })
+  return new_articles
+}
 
 function curateArticles(articles) {
-  // Do something...
   articles = handleDuplicates(articles);
-  // articles.sort(reliabilityCompare)
-  // Sort idea would be to make a point system where each day back is -1 point from 10 and reliability score is 1-10
+  articles.sort(dateSort)
+  articles = dateBasedReliabilitySort(articles)
   return articles;
 }
 
