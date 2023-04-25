@@ -563,7 +563,31 @@ input{
 
 /* CSS styles for phones */
 @media only screen and (max-width: 480px) {
+  body {
+    scale: 75%;
+  }
+  .header {
+    scale: 75%;
+  }
+  .card {
+    scale: 70%;
+    opacity: 100;
+    transform: translateY(650px); 
+    background-color: #e5e5e5;
+    height: 150px;
+    width: 700px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 16px 32px 0 rgba(92, 91, 91, 0.2);
+    margin: -35px;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.25);
+  }
+  .card-container {
 
+  }
+  .no-results-found {
+    text-align: center;
+  }
   .gear-icon {
     display: none;
     opacity: 0;

@@ -49,7 +49,7 @@ media_bias = {
   "Vanity Fair":[32.35,-14,45],
   "AlterNet":[25.76,-17.82],
   "BuzzFeed News":[32.25,-8],
-  "Vice News":[38.79,-9.98], // START OF SOURCES PART 2
+  "Vice News":[38.79,-9.98], 
   "Engadget":[44.41,-3.16],
   "Gizmodo.com":[39.34,-9.29],
   "Yahoo.com":[41.86,-6.09],
@@ -465,6 +465,7 @@ function search(input) {
 
       articles.push(article_object)
     })
+    console.log("Article count after search:", articles.length)
 
     new_articles = curateArticles(articles);
     displayArticles(new_articles);
