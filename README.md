@@ -39,13 +39,13 @@ This system prioritizes recency but creates more favorable results by highlighti
 # Contributions
 This project was made and developed by:
 
-- Lev Sosani, Full-Stack Manager
+- Lev Sosani (@Sxzo) Full-Stack Manager
 
-- Joe Tamulaitis, Backend Developer
+- Joe Tamulaitis (@joetamulaitis) Backend Developer
 
-- Joseph Morrisey, Full-Stack Developer
+- Joseph Morrisey (@jmorrissey23) Full-Stack Developer
 
-- Patrick Liu, Full-Stack Developer
+- Patrick Liu (@PatanL) Full-Stack Developer
 
 # Sources:
 
