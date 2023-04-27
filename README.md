@@ -36,6 +36,13 @@ This system prioritizes recency but creates more favorable results by highlighti
 2. Download the LiveServer VSCode extension
 3. Right click anywhere on the `index.html` file and select `Open with Live Server`
 
+# Sources: 
+
+> Our bias and reliability data: https://adfontesmedia.com/ 
+
+> Our API: https://newsapi.org/
+
+
 
 
 
