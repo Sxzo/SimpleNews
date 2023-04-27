@@ -34,7 +34,7 @@ This system prioritizes recency but creates more favorable results by highlighti
 # Run SimpleNews on your Computer
 1. Clone the repository to your device
 2. Download the LiveServer VSCode extension
-3. Right click anywhere on the `index.html` file and select `Open with Live Server`
+3. Right click anywhere in the `index.html` file and select `Open with Live Server`
 
 # Contributions
 This project was made and developed by:
