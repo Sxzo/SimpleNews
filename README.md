@@ -43,7 +43,7 @@ This project was made and developed by:
 
 - Joe Tamulaitis (@joetamulaitis) | Backend Developer
 
-- Joseph Morrisey (@jmorrissey23) | Full Stack Developer
+- Joseph Morrissey (@jmorrissey23) | Full Stack Developer
 
 - Patrick Liu (@PatanL) Full-Stack | Full Stack Developer
 
