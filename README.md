@@ -13,6 +13,8 @@ Our functionality relies on two critical components:
 
 Each search is requested from our news article API, which then has its results filtered and rated by our bias / reliability data before being displayed to the end-user. 
 
+![App Flow Diagram](https://user-images.githubusercontent.com/92756688/235375790-3add79fd-d54b-4e53-b29c-1659ef2a2d4b.png)
+
 ## The Sorting Process
 
 We tried and tested a variety of methods to best sort our results. Initially, we put our faith into the sorting functionality of our news API which provided an option to sort by relevancy. However, this algorithm was unexplained by the site's documentation and after hundreds of tests, we found it to be inefficient in the way it provided relevant articles based on keywords. As a result, we decided to develop our own method to sort and filter the results.
